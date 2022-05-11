@@ -17,43 +17,9 @@ using std::vector;
 //         bool taken;
 
 // geters
-char figure::get_figure() const noexcept
+Figure::Figure(char figure)
 {
-    return figure;
-}
-char figure::get_color() const noexcept
-{
-    return color;
-}
-bool figure::is_taken() const noexcept
-{
-    return is_taken;
-}
-vector<tuple<int>> figure::get_moves() const noexcept
-// return moves from 00
-{
-    switch (figure)
-    {
-    case 'K':
-        return king_move();
-        break;
-
-    default:
-        throw std::overflow_error("Asking for move that is not defined");
-        break;
-    }
-    return {};
-}
-
-// seters
-unsigned int figure::take() noexcept
-{
-    taken = true;
-    return price;
-}
-void figure::set_figure(char new_name)
-{
-    char figures[] = {
+    vector<char> figures = {
         'P', // PAWN
         'R', // ROOK
         'H', // HORSE
@@ -61,17 +27,41 @@ void figure::set_figure(char new_name)
         'Q', // QUEEN
         'K', // KING
     };
-    if (std::find(std::begin(figures), std::end(figures), new_name))
+}
+
+char Figure::get_figure() const noexcept
+{
+    return figure;
+}
+char Figure::get_color() const noexcept
+{
+    return color;
+}
+bool Figure::is_taken() const noexcept
+{
+    return is_taken;
+}
+vector<tuple<int>> Figure::get_moves() const noexcept
+// return moves from 00
+{
+    return {};
+}
+
+// seters
+unsigned int Figure::take() noexcept
+{
+    taken = true;
+    return price;
+}
+void Figure::set_figure(char new_name)
+{
+    // MAY COUSE ERROR, "if new_name in figures:"
+    if ((std::find(figures.begin(), figures.end()), new_name) != figures.end()) // WARN!!! SKECHY STUFF
         figure = new_name;
     else
         throw std::invalid_argument("unknown figure name");
 }
 
-vector<tuple<int>> king_move()
-{
-    vector<tuple<int>> temp = {(1, 0), (-1, 0), (0, 1), (0, -1)};
-    return temp;
-}
 vector<tuple<int>> pawn_move(bool is_moved)
 {
     vector<tuple<int>> temp = {(1, 0)};
