@@ -6,4 +6,4 @@ class Board{
         void place_pawn();
         void remove_pawn();
         void move_pawn();
-}
+};

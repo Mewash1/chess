@@ -9,25 +9,7 @@ using std::endl;
 using std::tuple;
 using std::vector;
 
-// class pawn{
-//     private:
-//         bool moved;
-//         char figure;
-//         char color;
-//         bool taken;
-
 // geters
-Figure::Figure(char figure)
-{
-    vector<char> figures = {
-        'P', // PAWN
-        'R', // ROOK
-        'H', // HORSE
-        'B', // BISHUP
-        'Q', // QUEEN
-        'K', // KING
-    };
-}
 
 char Figure::get_figure() const noexcept
 {
@@ -39,12 +21,12 @@ char Figure::get_color() const noexcept
 }
 bool Figure::is_taken() const noexcept
 {
-    return is_taken;
+    return taken;
 }
-vector<tuple<int>> Figure::get_moves() const noexcept
+vector<tuple<int, int>> Figure::get_moves() const noexcept
 // return moves from 00
 {
-    return {};
+    return moves;
 }
 
 // seters
@@ -53,6 +35,7 @@ unsigned int Figure::take() noexcept
     taken = true;
     return price;
 }
+
 void Figure::set_figure(char new_name)
 {
     // MAY COUSE ERROR, "if new_name in figures:"
@@ -62,7 +45,7 @@ void Figure::set_figure(char new_name)
         throw std::invalid_argument("unknown figure name");
 }
 
-vector<tuple<int>> pawn_move(bool is_moved)
+/* vector<tuple<int>> pawn_move(bool is_moved)
 {
     vector<tuple<int>> temp = {(1, 0)};
     if (!is_moved)
@@ -112,4 +95,4 @@ vector<tuple<int>> queen_move()
 {
     vector<tuple<int>> temp = {(1, 0), (-1, 0), (0, 1), (0, -1)};
     return temp;
-}
+} */
