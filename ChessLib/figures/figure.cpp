@@ -39,7 +39,7 @@ char Figure::get_color() const noexcept
 }
 bool Figure::is_taken() const noexcept
 {
-    return is_taken;
+    return taken;
 }
 vector<tuple<int>> Figure::get_moves() const noexcept
 // return moves from 00

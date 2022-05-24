@@ -6,8 +6,7 @@ using std::vector;
 
 class King : public Figure
 {
-
-}
+};
 
 vector<tuple<int>>
 king_move()
