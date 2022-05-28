@@ -22,6 +22,7 @@ public:
         else
             token = '♟';
         figure = 'P';
+        num_of_moves = 2;
         this->color = color;
         taken = false;
         price = 1;   

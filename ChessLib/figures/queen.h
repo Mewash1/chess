@@ -29,6 +29,7 @@ public:
             token = '♕';
         else
             token = '♛';
+        num_of_moves = 8;
         this->color = color;
         taken = false;
         price = 9;   

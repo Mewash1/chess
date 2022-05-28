@@ -40,3 +40,13 @@ char Figure::get_token() const noexcept
 {
     return this->token;
 }
+
+int Figure::get_num_of_moves()
+{
+    return num_of_moves;
+}
+
+void Figure::set_num_of_moves(int new_num)
+{
+    num_of_moves = new_num;
+}

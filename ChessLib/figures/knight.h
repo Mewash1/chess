@@ -30,6 +30,7 @@ public:
             token = '♘';
         else
             token = '♞';
+        num_of_moves = 1;
         this->color = color;
         taken = false;
         price = 3;   
