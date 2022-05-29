@@ -1,6 +1,9 @@
 #include "figure.h"
 #include <tuple>
 
+// #ifdef ROOK_H
+// #define ROOK_H
+
 using std::cout;
 using std::endl;
 using std::vector;
@@ -31,3 +34,4 @@ public:
         price = 5;   
     }
 };
+// #endif

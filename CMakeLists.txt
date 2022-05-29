@@ -15,9 +15,19 @@ FetchContent_MakeAvailable(googletest)
 
 set(PROJECT_SOURCES
     BoardLib/board.h
-    ChessLib/figures/*.h
+    BoardLib/board.cpp
+    ChessLib/figures/figure.cpp
+    ChessLib/figures/bishop.h
+    ChessLib/figures/figure.h
+    ChessLib/figures/king.h
+    ChessLib/figures/knight.h
+    ChessLib/figures/pawn.h
+    ChessLib/figures/queen.h
+    ChessLib/figures/rook.h
+    PlayerLib/player.cpp
+    PlayerLib/include_all_figures.h
     PlayerLib/player.h)
-set(PROJECT_SOURCES )
+# set(PROJECT_SOURCES)
 
 add_executable(temp temp.cpp ${PROJECT_SOURCES})
 

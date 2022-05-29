@@ -1,5 +1,5 @@
 #include "player.h"
-#include "include_all_figures.h"
+// #include "include_all_figures.h"
 
 Player::Player(char color, bool human)
 {
@@ -41,5 +41,4 @@ Player::Player(char color, bool human)
     figures.push_back(p6);
     figures.push_back(p7);
     figures.push_back(p8);
-
 }

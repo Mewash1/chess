@@ -2,6 +2,9 @@
 #include <string>
 #include <iostream>
 
+// #ifdef BOARD_H
+// #define BOARD_H
+
 class Board
 {
 private:
@@ -21,3 +24,5 @@ private:
         Player* end_turn(); //end turn returns next player
         friend std::ostream& operator<<(std::ostream& os, const Board b);
 };
+
+// #endif

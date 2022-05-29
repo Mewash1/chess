@@ -1,5 +1,5 @@
 #include "board.h"
-#include "../PlayerLib/player.h"
+// #include "../PlayerLib/player.h"
 #include <vector>
 #include <tuple>
 
@@ -35,11 +35,14 @@ Board::Board(Player *player1, Player *player2)
 std::string Board::move_figure(tuple<int, int> old_cord, tuple<int, int> new_cord)
 {
     Figure *moved_piece = table[get<0>(old_cord)][get<1>(old_cord)];
-    string temp = to_string(get<0>(old_cord)) + to_string(get<1>(old_cord));
+    string temp = "";
+    temp += to_string(get<0>(old_cord));
+    temp += to_string(get<1>(old_cord));
     temp += " ";
     temp += moved_piece->get_token();
     temp += " ";
-    string temp = to_string(get<0>(new_cord)) + to_string(get<1>(new_cord));
+    temp += to_string(get<0>(new_cord));
+    temp += to_string(get<1>(new_cord));
 
     if (table[get<0>(new_cord)][get<1>(new_cord)] != NULL)
     {
@@ -47,6 +50,7 @@ std::string Board::move_figure(tuple<int, int> old_cord, tuple<int, int> new_cor
         table[get<0>(new_cord)][get<1>(new_cord)]->take();
     }
     table[get<0>(new_cord)][get<1>(new_cord)] = moved_piece;
+    return temp;
 }
 
 void Board::dump()

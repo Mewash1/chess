@@ -1,5 +1,7 @@
 #include "figure.h"
 #include <tuple>
+// #ifdef PAWN_H
+// #define PAWN_H
 
 using std::cout;
 using std::endl;
@@ -30,3 +32,4 @@ public:
         price = 1;
     }
 };
+// #endif

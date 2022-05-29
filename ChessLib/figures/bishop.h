@@ -1,6 +1,9 @@
 #include "figure.h"
 #include <tuple>
 
+// #ifdef BISHOP_H
+// #define BISHOP_H
+
 using std::cout;
 using std::endl;
 using std::tuple;

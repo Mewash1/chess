@@ -1,6 +1,9 @@
 #include "figure.h"
 #include <tuple>
 
+// #ifdef QUEEN_H
+// #define QUEEN_H
+
 using std::cout;
 using std::endl;
 using std::vector;
@@ -36,3 +39,4 @@ public:
         price = 9;   
     }
 };
+// #endif

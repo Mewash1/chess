@@ -4,4 +4,3 @@
 #include "../ChessLib/figures/knight.h"
 #include "../ChessLib/figures/rook.h"
 #include "../ChessLib/figures/queen.h"
-#include "../ChessLib/figures/figure.h"

@@ -1,5 +1,7 @@
 #include "figure.h"
 #include <tuple>
+// #ifdef KNIGHT_H
+// #define KNIGHT_H
 
 using std::cout;
 using std::endl;
@@ -36,3 +38,4 @@ public:
         price = 3;   
     }
 };
+// #endif

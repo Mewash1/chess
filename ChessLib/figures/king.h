@@ -1,5 +1,7 @@
 #include "figure.h"
 #include <tuple>
+// #ifdef KING_H
+// #define KING_H
 using std::cout;
 using std::endl;
 using std::tuple;
@@ -33,3 +35,4 @@ public:
         price = 10;
     }
 };
+// #endif
