@@ -8,7 +8,7 @@ using std::cout;
 using std::endl;
 using std::tuple;
 using std::vector;
-
+using std::find;
 // geters
 
 char Figure::get_figure() const noexcept
@@ -36,63 +36,17 @@ unsigned int Figure::take() noexcept
     return price;
 }
 
-void Figure::set_figure(char new_name)
+char Figure::get_token() const noexcept
 {
-    // MAY COUSE ERROR, "if new_name in figures:"
-    if ((std::find(figures.begin(), figures.end()), new_name) != figures.end()) // WARN!!! SKECHY STUFF
-        figure = new_name;
-    else
-        throw std::invalid_argument("unknown figure name");
+    return this->token;
 }
 
-/* vector<tuple<int>> pawn_move(bool is_moved)
+int Figure::get_num_of_moves()
 {
-    vector<tuple<int>> temp = {(1, 0)};
-    if (!is_moved)
-        temp.push_back((2, 0));
-    return temp;
+    return num_of_moves;
 }
-vector<tuple<int>> hosre_move()
+
+void Figure::set_num_of_moves(int new_num)
 {
-    vector<tuple<int>> temp = {
-        (2, 1),
-        (2, -1),
-        (1, 2),
-        (-1, 2),
-        (-2, -1),
-        (-2, 1),
-        (-1, -2),
-        (1, -2),
-    };
-    return temp;
+    num_of_moves = new_num;
 }
-vector<tuple<int>> bishup_move()
-{
-    vector<tuple<int>> temp = {};
-    for (int i = 1; i <= 8; ++i)
-    {
-        temp.push_back((i, i));   // top right
-        temp.push_back((i, -i));  // top left
-        temp.push_back((-i, -i)); // bottom left
-        temp.push_back((-i, i));  // bottom right
-    }
-    return temp;
-}
-vector<tuple<int>> rook_move()
-{
-    vector<tuple<int>> temp = {};
-    for (int i = 1; i <= 8; ++i)
-    {
-        temp.push_back((0, i));  // right
-        temp.push_back((0, -i)); // left
-        temp.push_back((i, 0));  // top
-        temp.push_back((-i, 0)); // down
-    }
-    return temp;
-    return temp;
-}
-vector<tuple<int>> queen_move()
-{
-    vector<tuple<int>> temp = {(1, 0), (-1, 0), (0, 1), (0, -1)};
-    return temp;
-} */

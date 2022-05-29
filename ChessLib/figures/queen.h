@@ -1,17 +1,17 @@
 #include "figure.h"
+#include <tuple>
 #ifndef FIGURE_H
 #define FIGURE_H
-#include <tuple>
 using std::cout;
 using std::endl;
 using std::vector;
 using std::tuple;
 
 
-class King : public Figure
+class Queen : public Figure
 {
 public:
-    King(char color)
+    Queen(char color)
     {
         moves = {
             std::make_tuple(1, 0), // east
@@ -24,16 +24,15 @@ public:
             std::make_tuple(1, -1) // south-east
         };
         moved = false;
-        figure = 'K';
+        figure = 'Q';
         if (color == 'b')
-            token = '♔';
+            token = '♕';
         else
-            token = '♚';
-        num_of_moves = 1;
+            token = '♛';
+        num_of_moves = 8;
         this->color = color;
         taken = false;
-        price = 10;   
+        price = 9;   
     }
 };
-
 #endif
