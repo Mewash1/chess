@@ -1,6 +1,7 @@
 #include <vector>
 #include <iostream>
-
+#ifndef FIGURE_H
+#define FIGURE_H
 using std::cout;
 using std::endl;
 using std::tuple;
@@ -33,3 +34,5 @@ public:
     // seters
     unsigned int take() noexcept;
 };
+
+#endif

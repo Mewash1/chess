@@ -1,7 +1,6 @@
 #include "figure.h"
 #include <tuple>
-#ifndef FIGURE_H
-#define FIGURE_H
+
 using std::cout;
 using std::endl;
 using std::vector;
@@ -31,4 +30,3 @@ public:
         price = 5;   
     }
 };
-#endif
