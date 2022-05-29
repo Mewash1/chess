@@ -17,7 +17,7 @@ protected:
     bool taken;
     unsigned int price;
     int num_of_moves;
-    vector<tuple<int,int>> moves;
+    vector<tuple<int, int>> moves;
 
 public:
     Figure();
@@ -26,13 +26,13 @@ public:
     // geters
     char get_figure() const noexcept;
     char get_color() const noexcept;
-    int get_num_of_moves();
-    void set_num_of_moves(int new_num);
+    int get_num_of_moves() const noexcept;
+    unsigned int take() noexcept;
     bool is_taken() const noexcept;
-    vector<tuple<int,int>> get_moves() const noexcept; // return vector of all movements to further
+    // vector<tuple<int,int>> get_moves() const noexcept; // return vector of all movements to further
     char get_token() const noexcept;
     // seters
-    unsigned int take() noexcept;
+    void set_num_of_moves(int new_num);
 };
 
 #endif
