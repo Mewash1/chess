@@ -17,9 +17,9 @@ set(PROJECT_SOURCES
     BoardLib/board.h
     ChessLib/figures/*.h
     PlayerLib/player.h)
-# set(PROJECT_SOURCES )
+set(PROJECT_SOURCES )
 
-# add_executable(LoggerApp LoggerApp/LoggerApp.cpp ${PROJECT_SOURCES})
+add_executable(temp temp.cpp ${PROJECT_SOURCES})
 
 # add_executable(CollectionUnitTests UnitTests/CollectionUnitTest.cpp ${PROJECT_SOURCES})
 # add_executable(LoggerUnitTests UnitTests/LoggerUnitTest.cpp ${PROJECT_SOURCES})

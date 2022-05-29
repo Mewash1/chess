@@ -8,6 +8,6 @@ private:
     char color;
     vector<Figure*> figures;
 public:
-    Player(char color, bool human);
+    Player(char color, bool human = true);
     vector<Figure*> get_figures() {return figures;}
 };

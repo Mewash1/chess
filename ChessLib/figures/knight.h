@@ -23,12 +23,13 @@ public:
             std::make_tuple(2, -1),
             std::make_tuple(-2, -1), 
         };
-        moved = false;
         figure = 'k';
         if (color == 'b')
-            token = '♘';
+            token = 'H';
+            // token = '♘';
         else
-            token = '♞';
+            token = 'H';
+            // token = '♞';
         num_of_moves = 1;
         this->color = color;
         taken = false;

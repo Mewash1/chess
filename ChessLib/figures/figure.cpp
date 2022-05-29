@@ -6,9 +6,9 @@
 
 using std::cout;
 using std::endl;
+using std::find;
 using std::tuple;
 using std::vector;
-using std::find;
 // geters
 
 char Figure::get_figure() const noexcept
@@ -29,13 +29,6 @@ vector<tuple<int, int>> Figure::get_moves() const noexcept
     return moves;
 }
 
-// seters
-unsigned int Figure::take() noexcept
-{
-    taken = true;
-    return price;
-}
-
 char Figure::get_token() const noexcept
 {
     return this->token;
@@ -44,6 +37,12 @@ char Figure::get_token() const noexcept
 int Figure::get_num_of_moves()
 {
     return num_of_moves;
+}
+// seters
+unsigned int Figure::take() noexcept
+{
+    taken = true;
+    return price;
 }
 
 void Figure::set_num_of_moves(int new_num)

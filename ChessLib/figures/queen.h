@@ -22,12 +22,14 @@ public:
             std::make_tuple(-1, -1), // south-west
             std::make_tuple(1, -1) // south-east
         };
-        moved = false;
         figure = 'Q';
         if (color == 'b')
-            token = '♕';
+            // token = '♕';
+            token = 'Q';
+
         else
-            token = '♛';
+            token = 'Q';
+            // token = '♛';
         num_of_moves = 8;
         this->color = color;
         taken = false;

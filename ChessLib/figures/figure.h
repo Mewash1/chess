@@ -10,7 +10,7 @@ using std::vector;
 class Figure
 {
 protected:
-    bool moved;
+    bool moved = false;
     char figure;
     char token;
     char color;

@@ -18,12 +18,13 @@ public:
             std::make_tuple(0, 1), // north
             std::make_tuple(0, -1) // south
         };
-        moved = false;
         figure = 'R';
         if (color == 'b')
-            token = '♖';
+            // token = '♖';
+            token = 'R';
         else
-            token = '♜';
+            // token = '♖';
+            token = 'R';
         num_of_moves = 8;
         this->color = color;
         taken = false;
