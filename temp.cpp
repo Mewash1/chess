@@ -34,11 +34,11 @@ int main()
         old_row--;
         new_row--;
 
-        if (game.get_player1()->get_color() == 'w')
+        if (game.get_current_player()->get_color() == 'w')
             game.move_figure(std::make_tuple(7 - old_row, m[old_column]), std::make_tuple(7 - new_row, m[new_column]));
         else
-            game.move_figure(std::make_tuple(old_row, 7 - m[old_column]), std::make_tuple(new_row, 7 - m[new_column]));
-        //game.next_turn();
+            game.move_figure(std::make_tuple(7 - old_row, m[old_column]), std::make_tuple(7 - new_row, m[new_column]));
+        game.next_turn();
     }
     return 0;
 }

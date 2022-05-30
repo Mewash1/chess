@@ -12,7 +12,10 @@ Board::Board(Player *player1, Player *player2)
     for (int i = 7; i >= 6; i--)
         for (int j = 0; j < 8; j++)
         {
-            table[i][j] = player1->get_figures()[v];
+            if (player1->get_color() == 'w')
+                table[i][j] = player1->get_figures()[v];
+            else
+                table[i][j] = player2->get_figures()[v];
             v++;
         }
 
@@ -20,13 +23,19 @@ Board::Board(Player *player1, Player *player2)
     for (int i = 0; i < 2; i++)
         for (int j = 7; j >= 0; j--)
         {
-            table[i][j] = player2->get_figures()[v];
+            if (player1->get_color() == 'w')
+                table[i][j] = player2->get_figures()[v];
+            else
+                table[i][j] = player1->get_figures()[v];
             v++;
         }
 
     this->player1 = player1;
     this->player2 = player2;
-    current_player = player1;
+    if (this->player1->get_color() == 'w')
+        current_player = player1;
+    else
+        current_player = player2;
 }
 
 std::string Board::move_figure(tuple<int, int> old_cord, tuple<int, int> new_cord)
@@ -73,11 +82,24 @@ void Board::print_row(int i) {
     hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     SetConsoleTextAttribute(hConsole, 15);*/
     srand(time(NULL));
-    for (int j = 0; j < 8; j++) {
-        if (table[i][j] == NULL)
-            std::cout << "   |";
-        else {
-            std::cout << ' ' << (table[i][j])->get_token() << " |";
+    if (current_player->get_color() == 'w')
+    {
+        for (int j = 0; j < 8; j++) {
+            if (table[i][j] == NULL)
+                std::cout << "   |";
+            else {
+                std::cout << ' ' << (table[i][j])->get_token() << " |";
+            }
+        }
+    }
+    else
+    {
+        for (int j = 0; j < 8; j++) {
+            if (table[7 - i][7 - j] == NULL)
+                std::cout << "   |";
+            else {
+                std::cout << ' ' << (table[7 - i][7 - j])->get_token() << " |";
+            }
         }
     }
     std::cout << endl;
@@ -104,6 +126,7 @@ void Board::print()
         print_row(i);
         std::cout << "-------------------------------------" << std::endl;
     }
+    std::cout << current_player->get_name() << "'s turn\n";
 }
 
 void Board::switch_current_player()
