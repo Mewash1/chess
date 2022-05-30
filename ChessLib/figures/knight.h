@@ -1,7 +1,7 @@
 #include "figure.h"
 #include <tuple>
-// #ifdef KNIGHT_H
-// #define KNIGHT_H
+#ifndef KNIGHT_H
+#define KNIGHT_H
 
 using std::cout;
 using std::endl;
@@ -27,7 +27,7 @@ public:
         };
         figure = 'k';
         if (color == 'b')
-            token = 'H';
+            token = 'h';
             // token = '♘';
         else
             token = 'H';
@@ -38,4 +38,4 @@ public:
         price = 3;   
     }
 };
-// #endif
+#endif

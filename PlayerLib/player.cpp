@@ -1,9 +1,10 @@
 #include "player.h"
 // #include "include_all_figures.h"
 
-Player::Player(char color, bool human)
+Player::Player(char color, std::string name, bool human)
 {
     this->human = human;
+    this->name = name;
     this->color = color;
 
     Rook *r1 = new Rook(color);
@@ -27,8 +28,17 @@ Player::Player(char color, bool human)
     figures.push_back(r1);
     figures.push_back(k1);
     figures.push_back(b1);
-    figures.push_back(q);
-    figures.push_back(k);
+    if (color == 'w')
+    {
+        figures.push_back(q);
+        figures.push_back(k);
+    }
+    else
+    {
+        figures.push_back(k);
+        figures.push_back(q);
+    }
+    
     figures.push_back(b2);
     figures.push_back(k2);
     figures.push_back(r2);

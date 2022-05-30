@@ -26,7 +26,9 @@ set(PROJECT_SOURCES
     ChessLib/figures/rook.h
     PlayerLib/player.cpp
     PlayerLib/include_all_figures.h
-    PlayerLib/player.h)
+    PlayerLib/player.h
+    GameLib/game.h
+    GameLib/game.cpp)
 # set(PROJECT_SOURCES)
 
 add_executable(DeepBlue_2.0 temp.cpp ${PROJECT_SOURCES})

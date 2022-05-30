@@ -1,9 +1,8 @@
 #include "../PlayerLib/player.h"
 #include <string>
 #include <iostream>
-
-// #ifdef BOARD_H
-// #define BOARD_H
+#ifndef BOARD_H
+#define BOARD_H
 
 class Board
 {
@@ -22,7 +21,9 @@ private:
         void revive_figure(int graveyard_index, tuple<int,int>);
         void dump();
         Player* end_turn(); //end turn returns next player
-        friend std::ostream& operator<<(std::ostream& os, const Board b);
+        void print();
+        void print_row(int i);
+        void switch_current_player();
 };
 
-// #endif
+#endif

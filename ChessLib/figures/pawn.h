@@ -1,7 +1,7 @@
 #include "figure.h"
 #include <tuple>
-// #ifdef PAWN_H
-// #define PAWN_H
+#ifndef PAWN_H
+#define PAWN_H
 
 using std::cout;
 using std::endl;
@@ -16,7 +16,7 @@ public:
         if (color == 'b')
         {
             moves = {std::make_tuple(0, 1)};
-            token = 'P';
+            token = 'p';
             // token = '♙';
         }
         else
@@ -32,4 +32,4 @@ public:
         price = 1;
     }
 };
-// #endif
+#endif

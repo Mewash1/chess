@@ -1,8 +1,8 @@
 #include "figure.h"
 #include <tuple>
 
-// #ifdef ROOK_H
-// #define ROOK_H
+#ifndef ROOK_H
+#define ROOK_H
 
 using std::cout;
 using std::endl;
@@ -24,7 +24,7 @@ public:
         figure = 'R';
         if (color == 'b')
             // token = '♖';
-            token = 'R';
+            token = 'r';
         else
             // token = '♖';
             token = 'R';
@@ -34,4 +34,4 @@ public:
         price = 5;   
     }
 };
-// #endif
+#endif

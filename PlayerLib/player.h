@@ -1,6 +1,6 @@
 #include "include_all_figures.h"
-// #ifdef PLAYER_H
-// #define PLAYER_H
+#ifndef PLAYER_H
+#define PLAYER_H
 using std::vector;
 
 class Player
@@ -8,10 +8,13 @@ class Player
 private:
     bool human;
     char color;
+    std::string name;
     vector<Figure *> figures;
 
 public:
-    Player(char color, bool human = true);
+    Player(char color, std::string name, bool human = true);
+    char get_color() {return color;}
+    std::string get_name() {return name;}
     vector<Figure *> get_figures() { return figures; }
 };
-// #endif
+#endif
