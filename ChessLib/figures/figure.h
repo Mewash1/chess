@@ -30,7 +30,7 @@ public:
     int get_num_of_moves() const noexcept;
     unsigned int take() noexcept;
     bool is_taken() const noexcept;
-    // vector<tuple<int,int>> get_moves() const noexcept; // return vector of all movements to further
+    vector<tuple<int,int>> get_moves() const noexcept; // return vector of all movements to further
     char get_token() const noexcept;
     // seters
     void set_num_of_moves(int new_num);

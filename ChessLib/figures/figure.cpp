@@ -23,12 +23,11 @@ bool Figure::is_taken() const noexcept
 {
     return taken;
 }
-// vector<tuple<int, int>> Figure::get_moves() const noexcept
-// // return moves from 00
-// {
-//     return this->moves;
-//     // return 0;
-// }
+vector<tuple<int, int>> Figure::get_moves() const noexcept
+// return moves from 00
+{
+    return this->moves;
+}
 
 char Figure::get_token() const noexcept
 {

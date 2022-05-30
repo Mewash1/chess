@@ -26,7 +26,7 @@ void Game::menu()
     char color;
     while (true)
     {
-        cout << "Please choose your color: \n(w)hite\n(b)lack";
+        cout << "Please choose your color: \n(w)hite\n(b)lack\n";
         cin >> color;
         if (color != 'w' && color != 'b')
             cout << "Wrong option. Try again! \n";
