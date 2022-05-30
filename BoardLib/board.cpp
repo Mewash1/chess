@@ -2,6 +2,7 @@
 // #include "../PlayerLib/player.h"
 #include <vector>
 #include <tuple>
+#include <Windows.h>
 
 using namespace std;
 
@@ -70,15 +71,34 @@ void Board::dump()
     }
 }
 
+void print_row(int i, const Board b) {
+    HANDLE hConsole;
+    hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(hConsole, 15);
+    srand(time(NULL));
+    for (int j = 0; j < 8; j++) {
+        if (b.table[i][j] == NULL)
+            std::cout << "   |";
+        else {
+            std::cout << ' ' << (b.table[i][j])->get_token() << " |";
+        }
+    }
+    std::cout << endl;
+}
+
 std::ostream &operator<<(std::ostream &os, const Board b)
 {
-    for (int i = 0; i < 8; i++)
-        for (int j = 0; j < 8; j++)
-        {
-            if (b.table[i][j] == NULL)
-                os << 0;
-            else
-                os << (b.table[i][j])->get_token();
-        }
-    return os;
+    HANDLE hConsole;
+    hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(hConsole, 14);
+    std::cout << "-------------------------------------" << std::endl;
+    std::cout << "|   | A | B | C | D | E | F | G | H |" << std::endl;
+    std::cout << "-------------------------------------" << std::endl;
+    for (int i = 0; i < 8; i++) {
+        SetConsoleTextAttribute(hConsole, 14);
+        std::cout << "| " << (i + 1) << " |";
+        SetConsoleTextAttribute(hConsole, 15);
+        print_row(i, b);
+        std::cout << "-------------------------------------" << std::endl;
+    }
 }
