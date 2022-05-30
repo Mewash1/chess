@@ -1,7 +1,7 @@
 #include "figure.h"
 #include <tuple>
-// #ifdef KING_H
-// #define KING_H
+#ifndef KING_H
+#define KING_H
 using std::cout;
 using std::endl;
 using std::tuple;
@@ -24,7 +24,7 @@ public:
         };
         figure = 'K';
         if (color == 'b')
-            token = 'K';
+            token = 'k';
         // token = '♔';
         else
             token = 'K';
@@ -35,4 +35,4 @@ public:
         price = 10;
     }
 };
-// #endif
+#endif

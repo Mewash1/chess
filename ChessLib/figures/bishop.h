@@ -1,8 +1,8 @@
 #include "figure.h"
 #include <tuple>
 
-// #ifdef BISHOP_H
-// #define BISHOP_H
+#ifndef BISHOP_H
+#define BISHOP_H
 
 using std::cout;
 using std::endl;
@@ -23,7 +23,7 @@ public:
         moved = false;
         figure = 'B';
         if (color == 'b')
-            token = 'B';
+            token = 'b';
         // token = '♗';
         else
             token = 'B';
@@ -34,4 +34,4 @@ public:
         price = 3;
     }
 };
-// #endif
+#endif

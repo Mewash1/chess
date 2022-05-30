@@ -27,8 +27,17 @@ Player::Player(char color, bool human)
     figures.push_back(r1);
     figures.push_back(k1);
     figures.push_back(b1);
-    figures.push_back(q);
-    figures.push_back(k);
+    if (color == 'w')
+    {
+        figures.push_back(q);
+        figures.push_back(k);
+    }
+    else
+    {
+        figures.push_back(k);
+        figures.push_back(q);
+    }
+    
     figures.push_back(b2);
     figures.push_back(k2);
     figures.push_back(r2);

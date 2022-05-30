@@ -2,18 +2,14 @@
 // #include "../PlayerLib/player.h"
 #include <vector>
 #include <tuple>
-#include <Windows.h>
+//#include <Windows.h>
 
 using namespace std;
 
 Board::Board(Player *player1, Player *player2)
 {
-    // for (int i = 0; i < 8; i++)
-    //     for (int j = 0; j < 8; j++)
-    //         table[i][j] = NULL;
-
     int v = 0;
-    for (int i = 8; i > 6; i--)
+    for (int i = 7; i >= 6; i--)
         for (int j = 0; j < 8; j++)
         {
             table[i][j] = player1->get_figures()[v];
@@ -51,6 +47,7 @@ std::string Board::move_figure(tuple<int, int> old_cord, tuple<int, int> new_cor
         table[get<0>(new_cord)][get<1>(new_cord)]->take();
     }
     table[get<0>(new_cord)][get<1>(new_cord)] = moved_piece;
+    table[get<0>(old_cord)][get<1>(old_cord)] = NULL;
     return temp;
 }
 
@@ -71,34 +68,48 @@ void Board::dump()
     }
 }
 
-void print_row(int i, const Board b) {
-    HANDLE hConsole;
+void Board::print_row(int i) {
+    /*HANDLE hConsole;
     hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-    SetConsoleTextAttribute(hConsole, 15);
+    SetConsoleTextAttribute(hConsole, 15);*/
     srand(time(NULL));
     for (int j = 0; j < 8; j++) {
-        if (b.table[i][j] == NULL)
+        if (table[i][j] == NULL)
             std::cout << "   |";
         else {
-            std::cout << ' ' << (b.table[i][j])->get_token() << " |";
+            std::cout << ' ' << (table[i][j])->get_token() << " |";
         }
     }
     std::cout << endl;
 }
 
-std::ostream &operator<<(std::ostream &os, const Board b)
+void Board::print()
 {
-    HANDLE hConsole;
+    /*HANDLE hConsole;
     hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-    SetConsoleTextAttribute(hConsole, 14);
+    SetConsoleTextAttribute(hConsole, 14);*/
     std::cout << "-------------------------------------" << std::endl;
-    std::cout << "|   | A | B | C | D | E | F | G | H |" << std::endl;
+    if (current_player->get_color() == 'w')
+        std::cout << "|   | A | B | C | D | E | F | G | H |" << std::endl;
+    else
+        std::cout << "|   | H | G | F | E | D | C | B | A |" << std::endl;
     std::cout << "-------------------------------------" << std::endl;
     for (int i = 0; i < 8; i++) {
-        SetConsoleTextAttribute(hConsole, 14);
-        std::cout << "| " << (i + 1) << " |";
-        SetConsoleTextAttribute(hConsole, 15);
-        print_row(i, b);
+        //SetConsoleTextAttribute(hConsole, 14);
+        if (current_player->get_color() == 'w')
+            std::cout << "| " << (8 - i) << " |";
+        else
+            std::cout << "| " << (i + 1) << " |";
+        //SetConsoleTextAttribute(hConsole, 15);
+        print_row(i);
         std::cout << "-------------------------------------" << std::endl;
     }
+}
+
+void Board::switch_current_player()
+{
+    if (current_player == player1)
+        current_player = player2;
+    else
+        current_player = player1;
 }

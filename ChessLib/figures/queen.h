@@ -1,8 +1,8 @@
 #include "figure.h"
 #include <tuple>
 
-// #ifdef QUEEN_H
-// #define QUEEN_H
+#ifndef QUEEN_H
+#define QUEEN_H
 
 using std::cout;
 using std::endl;
@@ -28,7 +28,7 @@ public:
         figure = 'Q';
         if (color == 'b')
             // token = '♕';
-            token = 'Q';
+            token = 'q';
 
         else
             token = 'Q';
@@ -39,4 +39,4 @@ public:
         price = 9;   
     }
 };
-// #endif
+#endif
