@@ -46,11 +46,13 @@ std::string Board::move_figure(tuple<int, int> old_cord, tuple<int, int> new_cor
     Figure *moved_piece = table[get<0>(old_cord)][get<1>(old_cord)];
     string temp = "";
     temp += to_string(get<0>(old_cord));
+    temp += " ";
     temp += to_string(get<1>(old_cord));
     temp += " ";
     temp += moved_piece->get_token();
     temp += " ";
     temp += to_string(get<0>(new_cord));
+    temp += " ";
     temp += to_string(get<1>(new_cord));
 
     if (!validate_move(moved_piece, old_cord, new_cord))
@@ -165,9 +167,9 @@ bool Board::validate_move(Figure *moved, tuple<int, int> old_cord, tuple<int, in
     if (old_cord == cords)
         return false;
 
-    for (int l = moves.size(); l > 0; --l)
+    for (int k = moves.size(); k > 0; --k)
     {
-        direction = moves[l];
+        direction = moves[k];
         int move_x = get<0>(direction);
         int move_y = get<1>(direction);
         if (delta_x % move_x == 0 && delta_y % move_y == 0 && delta_x * move_x > 0 && delta_y * move_y > 0) // moves in direction checks for same orientation
