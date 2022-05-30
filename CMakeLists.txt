@@ -14,11 +14,11 @@ FetchContent_MakeAvailable(googletest)
 
 
 set(PROJECT_SOURCES
+    ChessLib/figures/figure.h
     BoardLib/board.h
     BoardLib/board.cpp
     ChessLib/figures/figure.cpp
     ChessLib/figures/bishop.h
-    ChessLib/figures/figure.h
     ChessLib/figures/king.h
     ChessLib/figures/knight.h
     ChessLib/figures/pawn.h
@@ -29,7 +29,7 @@ set(PROJECT_SOURCES
     PlayerLib/player.h)
 # set(PROJECT_SOURCES)
 
-add_executable(temp temp.cpp ${PROJECT_SOURCES})
+add_executable(DeepBlue_2.0 temp.cpp ${PROJECT_SOURCES})
 
 # add_executable(CollectionUnitTests UnitTests/CollectionUnitTest.cpp ${PROJECT_SOURCES})
 # add_executable(LoggerUnitTests UnitTests/LoggerUnitTest.cpp ${PROJECT_SOURCES})

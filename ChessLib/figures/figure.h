@@ -1,4 +1,5 @@
 #include <vector>
+#include <tuple>
 #include <iostream>
 #ifndef FIGURE_H
 #define FIGURE_H
@@ -18,10 +19,10 @@ protected:
     unsigned int price;
     int num_of_moves;
     vector<tuple<int, int>> moves;
+    Figure(char color);
 
 public:
-    Figure();
-    Figure(char color);
+    Figure() {}
     vector<char> figures;
     // geters
     char get_figure() const noexcept;
