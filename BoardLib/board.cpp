@@ -128,6 +128,8 @@ bool Board::at_check(Player *player)
 
 std::string Board::move_figure(tuple<int, int> old_cord, tuple<int, int> new_cord)
 {
+    if (table[get<0>(old_cord)][get<1>(old_cord)] == NULL)
+        throw out_of_range("chose an empty space");
     if (get<0>(new_cord) > 8 or get<1>(new_cord) > 8 or get<0>(new_cord) < 0 or get<1>(new_cord) < 0)
         throw out_of_range("left playable area");
 
