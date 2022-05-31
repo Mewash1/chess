@@ -66,11 +66,11 @@ void Board::print_row(int i)
         for (int j = 0; j < 8; j++)
         {
             if (table[i][j] == NULL)
-                std::cout << "   |";
+                std::cout << "\033[090m   |\033[0m";
+            else if ((table[i][j])->get_color() == 'w')
+                std::cout << ' ' << (table[i][j])->get_token() << "\033[90m |\033[0m";
             else
-            {
-                std::cout << ' ' << (table[i][j])->get_token() << " |";
-            }
+                std::cout << "\033[31m " << (table[i][j])->get_token() << " \033[90m|\033[0m";
         }
     }
     else
@@ -78,11 +78,11 @@ void Board::print_row(int i)
         for (int j = 0; j < 8; j++)
         {
             if (table[7 - i][7 - j] == NULL)
-                std::cout << "   |";
+                std::cout << "\033[90m   |\033[0m";
+            else if ((table[7 - i][7 - j])->get_color() == 'w')
+                std::cout << ' ' << (table[7 - i][7 - j])->get_token() << "\033[90m |\033[0m";
             else
-            {
-                std::cout << ' ' << (table[7 - i][7 - j])->get_token() << " |";
-            }
+                std::cout << "\033[31m " << (table[7 - i][7 - j])->get_token() << " \033[90m|\033[0m";
         }
     }
     std::cout << endl;
@@ -93,24 +93,36 @@ void Board::print()
     /*HANDLE hConsole;
     hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     SetConsoleTextAttribute(hConsole, 14);*/
-    std::cout << "-------------------------------------" << std::endl;
+    std::cout << "\033c";
+    std::cout << "\033[33m-------------------------------------" << std::endl;
     if (current_player->get_color() == 'w')
         std::cout << "|   | A | B | C | D | E | F | G | H |" << std::endl;
     else
         std::cout << "|   | H | G | F | E | D | C | B | A |" << std::endl;
-    std::cout << "-------------------------------------" << std::endl;
+    std::cout << "-------------------------------------\033[0m" << std::endl;
     for (int i = 0; i < 8; i++)
     {
         // SetConsoleTextAttribute(hConsole, 14);
         if (current_player->get_color() == 'w')
-            std::cout << "| " << (8 - i) << " |";
+            std::cout << "\033[33m| " << (8 - i) << " |\033[0m";
         else
-            std::cout << "| " << (i + 1) << " |";
+            std::cout << "\033[33m| " << (i + 1) << " |\033[0m";
         // SetConsoleTextAttribute(hConsole, 15);
         print_row(i);
-        std::cout << "-------------------------------------" << std::endl;
+        std::cout << "\033[33m-----\033[0m";
+        std::cout << "\033[90m--------------------------------\033[0m" << std::endl;
     }
     std::cout << current_player->get_name() << "'s turn\n";
+}
+
+void Board::print_graveyard() {
+    for (int i = 0; i < 30; ++i) {
+        if (graveyard[i] != 0)
+            cout << graveyard[i] << ' ';
+        else
+            continue;
+    }
+    cout << endl;
 }
 
 void Board::switch_current_player()

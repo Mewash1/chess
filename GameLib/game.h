@@ -11,6 +11,7 @@ public:
     Game();
     void menu();
     void show_board() {board->print();}
+    void show_graveyard() {board->print_graveyard();}
     void move_figure(std::tuple<int, int> old_cor, std::tuple<int, int> new_cor) {board->move_figure(old_cor, new_cor);}
     void player_turn();
     void cpu_turn();

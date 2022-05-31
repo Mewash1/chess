@@ -2,7 +2,7 @@
 #include <iostream>
 #include <map>
 #include <stdlib.h>     /* srand, rand */
-#include <time.h>  
+#include <time.h>
 
 using std::cout;
 using std::cin;
@@ -37,14 +37,14 @@ void Game::menu()
         else
             break;
     }
-    
+
     Player* player1 = new Player(color, "Player 1");
     if (color == 'w')
         color = 'b';
     else
         color = 'w';
     Player* player2 = new Player(color, "Player 2", false);
-    Board* board = new Board(player1, player2); 
+    Board* board = new Board(player1, player2);
 
     this->player1 = player1;
     this->player2 = player2;
@@ -58,6 +58,7 @@ void Game::menu()
 void Game::player_turn()
 {
         this->show_board();
+        this->show_graveyard();
         int old_row, new_row;
         char old_column, new_column;
         std::map<char, int> m = {{'a', 0}, {'b', 1}, {'c', 2}, {'d', 3}, {'e', 4}, {'f', 5}, {'g', 6}, {'h', 7}};

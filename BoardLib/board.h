@@ -23,6 +23,7 @@ public:
     Player *end_turn(); // end turn returns next player
     void print();
     void print_row(int i);
+    void print_graveyard();
     void switch_current_player();
 };
 
