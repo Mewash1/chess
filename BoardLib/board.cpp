@@ -157,6 +157,12 @@ std::string Board::move_figure(tuple<int, int> old_cord, tuple<int, int> new_cor
     table[get<0>(new_cord)][get<1>(new_cord)] = moved_piece;
     table[get<0>(old_cord)][get<1>(old_cord)] = NULL;
     cout << temp << endl;
+
+    if (moved_piece->get_figure() == 'P')
+    {
+        moved_piece->set_num_of_moves(1);
+    }
+
     return temp;
 }
 
@@ -217,16 +223,18 @@ bool Board::validate_move(Figure *moved, tuple<int, int> old_cord, tuple<int, in
         int move_y = get<1>(direction);
 
         if (check_direction(move_x, move_y, delta_x, delta_y)) // moves in direction checks for same orientation
-            for (int i = 0; i <= steps; ++i)
+            for (int i = 0; i < steps; ++i)
             {
                 pos_x += move_x;
                 pos_y += move_y;
                 if (pos_x == get<0>(cords) && pos_y == get<1>(cords))
                 {
                     if (table[pos_x][pos_y] == NULL or table[pos_x][pos_y]->get_color() != moved->get_color())
-                    if (at_check(current_player))
-                        throw logic_error("You will be at check");
-                    return true;
+                    {
+                        if (at_check(current_player))
+                            throw logic_error("You will be at check");
+                        return true;
+                    }
                 }
 
                 else
