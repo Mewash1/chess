@@ -15,13 +15,13 @@ public:
     {
         if (color == 'b')
         {
-            moves = {std::make_tuple(0, 1)};
+            moves = {std::make_tuple(1, 0)};
             token = 'p';
             // token = '♙';
         }
         else
         {
-            moves = {std::make_tuple(0, -1)};
+            moves = {std::make_tuple(-1, 0)};
             token = 'P';
             // token = '♟';
         }
