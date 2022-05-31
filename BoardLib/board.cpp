@@ -38,38 +38,6 @@ Board::Board(Player *player1, Player *player2)
         current_player = player2;
 }
 
-std::string Board::move_figure(tuple<int, int> old_cord, tuple<int, int> new_cord)
-{
-    if (get<0>(new_cord) > 8 or get<1>(new_cord) > 8 or get<0>(new_cord) < 0 or get<1>(new_cord) < 0)
-        throw out_of_range("left playable area");
-
-    Figure *moved_piece = table[get<0>(old_cord)][get<1>(old_cord)];
-    string temp = "";
-    temp += to_string(get<0>(old_cord));
-    temp += " ";
-    temp += to_string(get<1>(old_cord));
-    temp += " ";
-    temp += moved_piece->get_token();
-    temp += " ";
-    temp += to_string(get<0>(new_cord));
-    temp += " ";
-    temp += to_string(get<1>(new_cord));
-
-    if (!validate_move(moved_piece, old_cord, new_cord))
-        throw out_of_range("illegal move");
-
-
-    if (table[get<0>(new_cord)][get<1>(new_cord)] != NULL)
-    {
-        // current_player.points += table[get<0>(new_cord)][get<1>(new_cord)]->take();
-        table[get<0>(new_cord)][get<1>(new_cord)]->take();
-    }
-    table[get<0>(new_cord)][get<1>(new_cord)] = moved_piece;
-    table[get<0>(old_cord)][get<1>(old_cord)] = NULL;
-    cout << temp << endl;
-    return temp;
-}
-
 // void Board::dump()
 // {
 //     for (int y = 7; y >= 0; --y)
@@ -153,26 +121,98 @@ void Board::switch_current_player()
         current_player = player1;
 }
 
+bool Board::at_check(Player *player)
+{
+    return false;
+}
+
+std::string Board::move_figure(tuple<int, int> old_cord, tuple<int, int> new_cord)
+{
+    if (get<0>(new_cord) > 8 or get<1>(new_cord) > 8 or get<0>(new_cord) < 0 or get<1>(new_cord) < 0)
+        throw out_of_range("left playable area");
+
+    Figure *moved_piece = table[get<0>(old_cord)][get<1>(old_cord)];
+    string temp = "";
+    temp += to_string(get<0>(old_cord));
+    temp += " ";
+    temp += to_string(get<1>(old_cord));
+    temp += " ";
+    temp += moved_piece->get_token();
+    temp += " ";
+    temp += to_string(get<0>(new_cord));
+    temp += " ";
+    temp += to_string(get<1>(new_cord));
+
+    if (!validate_move(moved_piece, old_cord, new_cord))
+    {
+        cout << "illegal move" << endl;
+        throw out_of_range("illegal move");
+    }
+
+    if (table[get<0>(new_cord)][get<1>(new_cord)] != NULL)
+    {
+        // current_player.points += table[get<0>(new_cord)][get<1>(new_cord)]->take();
+        table[get<0>(new_cord)][get<1>(new_cord)]->take();
+    }
+    table[get<0>(new_cord)][get<1>(new_cord)] = moved_piece;
+    table[get<0>(old_cord)][get<1>(old_cord)] = NULL;
+    cout << temp << endl;
+    return temp;
+}
+
+bool zero_direction(int move_a, int delta_a)
+{ // chceck for expected zero vector
+    return bool(move_a == 0 && delta_a == 0);
+}
+bool same_direction(int move_a, int delta_a)
+{ // check for linear combination
+    return bool(delta_a % move_a == 0);
+}
+bool one_direction(int move_a, int delta_a) // pun intended
+{
+    if (zero_direction(move_a, delta_a))
+        return true;
+    if (move_a != 0)
+        return same_direction(move_a, delta_a);
+    else
+        return false;
+}
+
+bool turn_direction(int move_a, int delta_a)
+{ // check for common vector turn
+    return bool((delta_a * move_a > 0) or (move_a == 0 && delta_a == 0));
+}
+
+bool check_direction(int move_x, int move_y, int delta_x, int delta_y)
+{
+
+    return bool((one_direction(move_x, delta_x) &&
+                 one_direction(move_y, delta_y)) &&
+                (turn_direction(move_x, delta_x) &&
+                 turn_direction(move_y, delta_y)));
+}
+
 bool Board::validate_move(Figure *moved, tuple<int, int> old_cord, tuple<int, int> cords)
 {
     int steps = moved->get_num_of_moves();
     vector<tuple<int, int>> moves = moved->get_moves();
     tuple<int, int> direction;
     int delta_x, delta_y, pos_x, pos_y;
-    delta_x = get<0>(old_cord) - get<0>(cords);
-    delta_y = get<1>(old_cord) - get<1>(cords);
+    delta_x = get<0>(cords) - get<0>(old_cord);
+    delta_y = get<1>(cords) - get<1>(old_cord);
     pos_x = get<0>(old_cord);
     pos_y = get<1>(old_cord);
 
     if (old_cord == cords)
         return false;
 
-    for (int k = moves.size(); k > 0; --k)
+    for (int k = 0; k < moves.size(); ++k)
     {
         direction = moves[k];
         int move_x = get<0>(direction);
         int move_y = get<1>(direction);
-        if (delta_x % move_x == 0 && delta_y % move_y == 0 && delta_x * move_x > 0 && delta_y * move_y > 0) // moves in direction checks for same orientation
+
+        if (check_direction(move_x, move_y, delta_x, delta_y)) // moves in direction checks for same orientation
             for (int i = 0; i <= steps; ++i)
             {
                 pos_x += move_x;
@@ -182,6 +222,11 @@ bool Board::validate_move(Figure *moved, tuple<int, int> old_cord, tuple<int, in
                     if (table[pos_x][pos_y] == NULL or table[pos_x][pos_y]->get_color() != moved->get_color())
                         return !at_check(current_player);
                 }
+                else if (pos_x > 8 or pos_y > 8 or pos_x < 0 or pos_y < 0)
+                {
+                    throw out_of_range("infinite left");
+                }
+
                 else
                 {
                     if (table[pos_x][pos_y] != NULL)
@@ -189,10 +234,5 @@ bool Board::validate_move(Figure *moved, tuple<int, int> old_cord, tuple<int, in
                 }
             }
     }
-    return false;
-}
-
-bool Board::at_check(Player *player)
-{
     return false;
 }
