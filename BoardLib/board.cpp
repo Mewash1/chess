@@ -132,6 +132,7 @@ std::string Board::move_figure(tuple<int, int> old_cord, tuple<int, int> new_cor
         throw out_of_range("left playable area");
 
     Figure *moved_piece = table[get<0>(old_cord)][get<1>(old_cord)];
+
     string temp = "";
     temp += to_string(get<0>(old_cord));
     temp += " ";
@@ -144,10 +145,7 @@ std::string Board::move_figure(tuple<int, int> old_cord, tuple<int, int> new_cor
     temp += to_string(get<1>(new_cord));
 
     if (!validate_move(moved_piece, old_cord, new_cord))
-    {
-        cout << "illegal move" << endl;
-        throw out_of_range("illegal move");
-    }
+        throw out_of_range("illegal move!");
 
     if (table[get<0>(new_cord)][get<1>(new_cord)] != NULL)
     {
@@ -194,6 +192,10 @@ bool check_direction(int move_x, int move_y, int delta_x, int delta_y)
 
 bool Board::validate_move(Figure *moved, tuple<int, int> old_cord, tuple<int, int> cords)
 {
+    // check player
+    if (current_player->get_color() != moved->get_color())
+        throw logic_error("Chosen figure does not belong to you!");
+
     int steps = moved->get_num_of_moves();
     vector<tuple<int, int>> moves = moved->get_moves();
     tuple<int, int> direction;
@@ -220,11 +222,9 @@ bool Board::validate_move(Figure *moved, tuple<int, int> old_cord, tuple<int, in
                 if (pos_x == get<0>(cords) && pos_y == get<1>(cords))
                 {
                     if (table[pos_x][pos_y] == NULL or table[pos_x][pos_y]->get_color() != moved->get_color())
-                        return !at_check(current_player);
-                }
-                else if (pos_x > 8 or pos_y > 8 or pos_x < 0 or pos_y < 0)
-                {
-                    throw out_of_range("infinite left");
+                    if (at_check(current_player))
+                        throw logic_error("You will be at check");
+                    return true;
                 }
 
                 else
