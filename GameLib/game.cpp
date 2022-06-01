@@ -67,8 +67,7 @@ void Game::menu()
 std::string Game::player_turn()
 {
 
-    std::string temp_return = "aaa"; // used to return
-    this->show_board();
+    std::string temp_return; // used to return
     int old_row, new_row;
     char old_column, new_column;
     std::map<char, int> m = {{'a', 0}, {'b', 1}, {'c', 2}, {'d', 3}, {'e', 4}, {'f', 5}, {'g', 6}, {'h', 7}};
@@ -132,8 +131,9 @@ std::string Game::player_turn()
     return temp_return;
 }
 
-void Game::cpu_turn()
+std::string Game::cpu_turn()
 {
+    std::string temp_return; // used to return
     srand(time(NULL));
     while (true)
     {
@@ -144,7 +144,7 @@ void Game::cpu_turn()
 
         try
         {
-            this->move_figure(std::make_tuple(x, y), std::make_tuple(new_x, new_y));
+            temp_return = this->move_figure(std::make_tuple(x, y), std::make_tuple(new_x, new_y));
         }
         catch (const std::exception &exc)
         {
@@ -158,6 +158,7 @@ void Game::cpu_turn()
         }
         break;
     }
+    return temp_return;
 }
 
 void Game::switch_player()
