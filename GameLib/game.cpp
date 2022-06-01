@@ -44,10 +44,13 @@ void Game::menu()
     else
         color = 'w';
 
+    Player *player2 = new Player(color, "Player 2", false);
+
     if (gamemode == 1)
-        Player *player2 = new Player(color, "Player 2");
-    else
-        Player *player2 = new Player(color, "Player 2", false);
+    {
+        delete player2;
+        player2 = new Player(color, "Player 2");
+    }
 
     Board *board = new Board(player1, player2);
 

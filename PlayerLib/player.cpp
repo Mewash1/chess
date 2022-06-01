@@ -1,4 +1,5 @@
 #include "player.h"
+#include <tuple>
 // #include "include_all_figures.h"
 
 Player::Player(char color, std::string name, bool human) noexcept
@@ -51,6 +52,14 @@ Player::Player(char color, std::string name, bool human) noexcept
     figures.push_back(p6);
     figures.push_back(p7);
     figures.push_back(p8);
+    if (color == 'b')
+    {
+        king_position = std::make_tuple(0, 4);
+    }
+    else
+    {
+        king_position = std::make_tuple(7, 4);
+    }
 }
 
 void Player::set_king(tuple<int, int> new_pos) noexcept

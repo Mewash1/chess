@@ -9,9 +9,10 @@ class Board
 private:
     Player *player1, *player2, *current_player;
     Figure *table[8][8] = {{NULL}};
-    Figure *graveyard[32] = {NULL};
+    vector<Figure *> graveyard;
     bool validate_move(Figure *moved, tuple<int, int> old_cord, tuple<int, int> cords);
     bool at_check(Player *player);
+    void take_figure(Figure *looser);
 
 public:
     Board(Player *player1, Player *player2);

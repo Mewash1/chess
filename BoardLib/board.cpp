@@ -116,15 +116,19 @@ void Board::print()
     std::cout << current_player->get_name() << "'s turn\n";
 }
 
-void Board::print_graveyard() {
-    std::vector<Figure*> temp;
-    for (int i = 0; i < 30; ++i) {
-        if (graveyard[i] != 0 && graveyard[i]->get_color() == 'w')
-            cout << graveyard[i] << "(white)" << ' ';
-        else if (graveyard[i] != 0 && graveyard[i]->get_color() == 'b')
-            cout << graveyard[i] << "(black)" << ' ';
-        else
-            continue;
+void Board::print_graveyard()
+{
+
+    for (int i = 0; i < graveyard.size(); ++i)
+    {
+        if (graveyard[i]->get_color() == 'w')
+        {
+            cout << graveyard[i]->get_token() << "(white)" << ' ';
+        }
+        else if (graveyard[i]->get_color() == 'b')
+        {
+            cout << graveyard[i]->get_token() << "(black)" << ' '; // TODO KOLORKi
+        }
     }
     cout << endl;
 }
@@ -137,15 +141,11 @@ void Board::switch_current_player()
         current_player = player1;
 }
 
-bool Board::at_check(Player *player)
-{
-    return false;
-}
-
 std::map<int, char> m = {{0, 'a'}, {1, 'b'}, {2, 'c'}, {3, 'd'}, {4, 'e'}, {5, 'f'}, {6, 'g'}, {7, 'h'}};
 
 std::string Board::move_figure(tuple<int, int> old_cord, tuple<int, int> new_cord)
 {
+    Figure *purgatory = NULL;
     if (table[get<0>(old_cord)][get<1>(old_cord)] == NULL)
         throw out_of_range("chose an empty space");
     if (get<0>(new_cord) > 8 or get<1>(new_cord) > 8 or get<0>(new_cord) < 0 or get<1>(new_cord) < 0)
@@ -154,37 +154,50 @@ std::string Board::move_figure(tuple<int, int> old_cord, tuple<int, int> new_cor
     Figure *moved_piece = table[get<0>(old_cord)][get<1>(old_cord)];
 
     string temp = "";
-    temp += to_string(7 - get<0>(old_cord));
-    temp += " ";
-    temp += to_string(m[get<1>(old_cord)]);
-    temp += " (";
+    temp += to_string(8 - get<0>(old_cord));
+    temp += (m[get<1>(old_cord)]);
+    temp += "(";
     temp += moved_piece->get_token();
     temp += ") ---> ";
-    temp += to_string(7 - get<0>(new_cord));
-    temp += " ";
-    temp += to_string(m[get<1>(new_cord)]);
+    temp += to_string(8 - get<0>(new_cord));
+    temp += (m[get<1>(new_cord)]);
 
     if (!validate_move(moved_piece, old_cord, new_cord))
         throw out_of_range("illegal move!");
 
     if (table[get<0>(new_cord)][get<1>(new_cord)] != NULL)
     {
-        // current_player.points += table[get<0>(new_cord)][get<1>(new_cord)]->take();
-        table[get<0>(new_cord)][get<1>(new_cord)]->take();
+        purgatory = table[get<0>(new_cord)][get<1>(new_cord)];
+        // ->take();
     }
-    table[get<0>(new_cord)][get<1>(new_cord)] = moved_piece;
+    table[get<0>(new_cord)][get<1>(new_cord)] = moved_piece; // moving pieces
     table[get<0>(old_cord)][get<1>(old_cord)] = NULL;
-    // cout << temp << endl;
+    if (moved_piece->get_figure() == 'K')
+    {
+        current_player->set_king(new_cord);
+    }
+
+    if (at_check(current_player))
+    {
+        table[get<0>(new_cord)][get<1>(new_cord)] = purgatory;
+        purgatory = NULL;
+        table[get<0>(old_cord)][get<1>(old_cord)] = moved_piece;
+        if (moved_piece->get_figure() == 'K')
+        {
+            current_player->set_king(old_cord);
+        }
+        throw logic_error("you will be at check");
+    }
+
+    if (purgatory != NULL)
+        take_figure(purgatory);
 
     if (moved_piece->get_figure() == 'P')
     {
         moved_piece->set_num_of_moves(1);
     }
-    
-    if (moved_piece->get_figure() == 'K')
-    {
-        current_player->set_king(new_cord);
-    }
+
+    cout << temp << endl;
 
     return temp;
 }
@@ -254,8 +267,6 @@ bool Board::validate_move(Figure *moved, tuple<int, int> old_cord, tuple<int, in
                 {
                     if (table[pos_x][pos_y] == NULL or table[pos_x][pos_y]->get_color() != moved->get_color())
                     {
-                        if (at_check(current_player))
-                            throw logic_error("You will be at check");
                         return true;
                     }
                 }
@@ -268,4 +279,10 @@ bool Board::validate_move(Figure *moved, tuple<int, int> old_cord, tuple<int, in
             }
     }
     return false;
+}
+
+void Board::take_figure(Figure *looser)
+{
+    graveyard.push_back(looser);
+    looser->take();
 }

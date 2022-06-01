@@ -17,10 +17,11 @@ set(PROJECT_SOURCES
     ChessLib/figures/figure.h
     BoardLib/board.h
     BoardLib/board.cpp
+    BoardLib/check.cpp
     ChessLib/figures/figure.cpp
     ChessLib/figures/bishop.h
     ChessLib/figures/king.h
-    ChessLib/figures/knight.h
+    ChessLib/figures/horse.h
     ChessLib/figures/pawn.h
     ChessLib/figures/queen.h
     ChessLib/figures/rook.h
