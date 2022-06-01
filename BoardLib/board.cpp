@@ -116,12 +116,13 @@ void Board::print()
     std::cout << current_player->get_name() << "'s turn\n";
 }
 
-void Board::print_graveyard()
-{
-    for (int i = 0; i < 30; ++i)
-    {
-        if (graveyard[i] != 0)
-            cout << graveyard[i] << ' ';
+void Board::print_graveyard() {
+    std::vector<Figure*> temp;
+    for (int i = 0; i < 30; ++i) {
+        if (graveyard[i] != 0 && graveyard[i]->get_color() == 'w')
+            cout << graveyard[i] << "(white)" << ' ';
+        else if (graveyard[i] != 0 && graveyard[i]->get_color() == 'b')
+            cout << graveyard[i] << "(black)" << ' ';
         else
             continue;
     }
