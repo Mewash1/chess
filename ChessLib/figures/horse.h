@@ -25,7 +25,7 @@ public:
             std::make_tuple(2, -1),
             std::make_tuple(-2, -1), 
         };
-        figure = 'k';
+        figure = 'H';
         if (color == 'b')
             token = 'h';
             // token = '♘';
