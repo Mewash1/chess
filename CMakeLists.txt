@@ -33,7 +33,9 @@ set(PROJECT_SOURCES
 # set(PROJECT_SOURCES)
 
 add_executable(DeepBlue_2-0 temp.cpp ${PROJECT_SOURCES})
+add_executable(FigureTest tests/FigureTest.cpp ${PROJECT_SOURCES})
 
+target_link_libraries(FigureTest PUBLIC gtest_main)
 # add_executable(CollectionUnitTests UnitTests/CollectionUnitTest.cpp ${PROJECT_SOURCES})
 # add_executable(LoggerUnitTests UnitTests/LoggerUnitTest.cpp ${PROJECT_SOURCES})
 # target_link_libraries(LoggerUnitTests PUBLIC gtest_main)

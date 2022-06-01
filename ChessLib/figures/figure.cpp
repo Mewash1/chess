@@ -11,7 +11,7 @@ using std::tuple;
 using std::vector;
 // geters
 
-char Figure::get_figure() const noexcept
+char Figure::get_figure()
 {
     return figure;
 }

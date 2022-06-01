@@ -1,0 +1,6 @@
+#include "../ChessLib/figures/king.h"
+#include "../ChessLib/figures/bishop.h"
+#include "../ChessLib/figures/pawn.h"
+#include "../ChessLib/figures/horse.h"
+#include "../ChessLib/figures/rook.h"
+#include "../ChessLib/figures/queen.h"
