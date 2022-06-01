@@ -38,6 +38,7 @@ void Game::menu()
             break;
     }
 
+    // Player *player1 = new Player(color, "Player 1", false);
     Player *player1 = new Player(color, "Player 1");
     if (color == 'w')
         color = 'b';
@@ -166,4 +167,9 @@ void Game::switch_player()
         current_player = player2;
     else
         current_player = player1;
+}
+
+bool Game::mate_check()
+{
+    return board->mate_check();
 }

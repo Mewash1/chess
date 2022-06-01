@@ -146,9 +146,8 @@ void Board::switch_current_player()
 
 std::map<int, char> m = {{0, 'a'}, {1, 'b'}, {2, 'c'}, {3, 'd'}, {4, 'e'}, {5, 'f'}, {6, 'g'}, {7, 'h'}};
 
-std::string Board::move_figure(tuple<int, int> old_cord, tuple<int, int> new_cord)
+std::string Board::move_figure(tuple<int, int> old_cord, tuple<int, int> new_cord, bool simulate)
 {
-    Figure *purgatory = NULL;
     if (table[get<0>(old_cord)][get<1>(old_cord)] == NULL)
         throw out_of_range("chose an empty space");
     if (get<0>(new_cord) > 8 or get<1>(new_cord) > 8 or get<0>(new_cord) < 0 or get<1>(new_cord) < 0)
@@ -180,7 +179,10 @@ std::string Board::move_figure(tuple<int, int> old_cord, tuple<int, int> new_cor
         current_player->set_king(new_cord);
     }
 
-    if (at_check(current_player))
+    bool temp_at_check = at_check(current_player);
+    bool end_throw = false;
+
+    if (temp_at_check or simulate)
     {
         table[get<0>(new_cord)][get<1>(new_cord)] = purgatory;
         purgatory = NULL;
@@ -189,7 +191,10 @@ std::string Board::move_figure(tuple<int, int> old_cord, tuple<int, int> new_cor
         {
             current_player->set_king(old_cord);
         }
-        throw logic_error("you will be at check");
+        if (temp_at_check)
+        {
+            end_throw = true;
+        }
     }
 
     if (purgatory != NULL)
@@ -201,6 +206,10 @@ std::string Board::move_figure(tuple<int, int> old_cord, tuple<int, int> new_cor
     }
 
     cout << temp << endl;
+    if (end_throw)
+        {
+            throw logic_error("you will be at check");
+        }
 
     return temp;
 }
@@ -237,11 +246,13 @@ bool check_direction(int move_x, int move_y, int delta_x, int delta_y)
                  turn_direction(move_y, delta_y)));
 }
 
-bool Board::validate_move(Figure *moved, tuple<int, int> old_cord, tuple<int, int> cords)
+bool Board::validate_move(Figure *moved, tuple<int, int> const old_cord, tuple<int, int> const cords)
 {
     // check player
     if (current_player->get_color() != moved->get_color())
-        throw logic_error("Chosen figure does not belong to you!");
+    {
+        throw out_of_range("Chosen figure does not belong to you!");
+    }
 
     int steps = moved->get_num_of_moves();
     vector<tuple<int, int>> moves = moved->get_moves();
@@ -288,4 +299,5 @@ void Board::take_figure(Figure *looser)
 {
     graveyard.push_back(looser);
     looser->take();
+    purgatory = NULL;
 }
