@@ -31,7 +31,8 @@ vector<tuple<int, int>> Figure::get_moves() const noexcept
 
 char Figure::get_token() const noexcept
 {
-    return this->token;
+    // return this->token;
+    return this->figure;
 }
 
 int Figure::get_num_of_moves() const noexcept

@@ -1,7 +1,7 @@
 #include "player.h"
 // #include "include_all_figures.h"
 
-Player::Player(char color, std::string name, bool human)
+Player::Player(char color, std::string name, bool human) noexcept
 {
     this->human = human;
     this->name = name;
@@ -38,7 +38,7 @@ Player::Player(char color, std::string name, bool human)
         figures.push_back(k);
         figures.push_back(q);
     }
-    
+
     figures.push_back(b2);
     figures.push_back(k2);
     figures.push_back(r2);
@@ -51,4 +51,9 @@ Player::Player(char color, std::string name, bool human)
     figures.push_back(p6);
     figures.push_back(p7);
     figures.push_back(p8);
+}
+
+void Player::set_king(tuple<int, int> new_pos) noexcept
+{
+    this->king_position = new_pos;
 }
