@@ -113,24 +113,27 @@ void Board::print()
         std::cout << "\033[33m-----\033[0m";
         std::cout << "\033[90m--------------------------------\033[0m" << std::endl;
     }
+    print_graveyard();
     std::cout << current_player->get_name() << "'s turn\n";
 }
 
 void Board::print_graveyard()
 {
-
+    std::vector<char> temp;
     for (int i = 0; i < graveyard.size(); ++i)
     {
+        if (graveyard[i] == NULL)
+            break;
         if (graveyard[i]->get_color() == 'w')
-        {
-            cout << graveyard[i]->get_token() << "(white)" << ' ';
-        }
+            cout << "\033[0m" << graveyard[i]->get_token() << ' ';
         else if (graveyard[i]->get_color() == 'b')
-        {
-            cout << graveyard[i]->get_token() << "(black)" << ' '; // TODO KOLORKi
-        }
+            temp.push_back(graveyard[i]->get_token());
     }
-    cout << endl;
+    cout << "\033[31m" << endl;
+    for (int j = 0; j < temp.size(); j++) {
+        cout << temp[j] << ' ';
+    }
+    cout << "\033[0m" << endl;
 }
 
 void Board::switch_current_player()

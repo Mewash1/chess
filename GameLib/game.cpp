@@ -66,9 +66,8 @@ void Game::menu()
 std::string Game::player_turn()
 {
 
-    std::string temp_return; // used to return
+    std::string temp_return = "aaa"; // used to return
     this->show_board();
-    this->show_graveyard();
     int old_row, new_row;
     char old_column, new_column;
     std::map<char, int> m = {{'a', 0}, {'b', 1}, {'c', 2}, {'d', 3}, {'e', 4}, {'f', 5}, {'g', 6}, {'h', 7}};
@@ -92,7 +91,7 @@ std::string Game::player_turn()
         }
         old_row = (int)(old_coords[0]) - '0';
         old_row--;
-        old_column = old_coords[1];
+        old_column = tolower(old_coords[1]);
 
         while (true)
         {

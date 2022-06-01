@@ -12,7 +12,7 @@ public:
     Game();
     void menu();
     void show_board() { board->print(); }
-    void show_graveyard() { board->print_graveyard(); }
+    // void show_graveyard() { board->print_graveyard(); }
     std::string move_figure(std::tuple<int, int> old_cor, std::tuple<int, int> new_cor) { return board->move_figure(old_cor, new_cor); }
     std::string player_turn();
     void cpu_turn();
