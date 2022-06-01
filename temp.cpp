@@ -11,13 +11,17 @@ int main()
 {
     Game game;
     game.menu();
-    while (true)
+    while (!game.mate_check())
+
     {
+        game.show_board();
         if (game.get_current_player()->get_humanity())
             game.player_turn();
         else
             game.cpu_turn();
         game.switch_player();
     }
+    game.show_board();
+    cout << game.get_current_player()->get_name() << " lost" << endl;
     return 0;
 }

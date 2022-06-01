@@ -17,6 +17,7 @@ public:
     std::string player_turn();
     void cpu_turn();
     void switch_player();
+    bool mate_check();
     Player *get_player1() { return player1; }
     Player *get_player2() { return player2; }
     Player *get_current_player() { return current_player; }
