@@ -116,9 +116,17 @@ void Board::print()
 }
 
 void Board::print_graveyard() {
+    std::vector<Figure*> temp;
+    cout << "White figures: ";
     for (int i = 0; i < 30; ++i) {
-        if (graveyard[i] != 0)
-            cout << graveyard[i] << ' ';
+        if (graveyard[i] != 0 && graveyard[i]->get_color() == 'w')
+            cout << graveyard[i] << "(white)" << ' ';
+        else
+            continue;
+    cout << endl << "Black figures: ";
+    for (int j = 0; j < 30; ++j)
+        if (graveyard[i] != 0 && graveyard[i]->get_color() == 'b')
+            cout << graveyard[i] << "(black)" << ' ';
         else
             continue;
     }
