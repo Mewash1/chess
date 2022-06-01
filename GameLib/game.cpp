@@ -80,18 +80,19 @@ std::string Game::player_turn()
             cin >> old_coords;
             if (old_coords.size() != 2)
                 cout << "Wrong length of coordinates: try again!\n";
-            else if (!(std::isdigit(old_coords[0])))
-                cout << "First character is not a number: try again!\n";
-            else if (((int)(old_coords[0]) - '0') < 1 || ((int)(old_coords[0]) - '0') > 8)
-                cout << "First character is not a valid row number: try again!\n";
-            else if (m[tolower(old_coords[1])] == 0 && tolower(old_coords[1]) != 'a')
-                cout << "Second character is not a valid column: try again!\n";
+            else if (m[tolower(old_coords[0])] == 0 && tolower(old_coords[0]) != 'a')
+                cout << "First character is not a valid column: try again!\n";
+            else if (!(std::isdigit(old_coords[1])))
+                cout << "Second character is not a number: try again!\n";
+            else if (((int)(old_coords[1]) - '0') < 1 || ((int)(old_coords[1]) - '0') > 8)
+                cout << "Second character is not a valid row number: try again!\n";
+            
             else
                 break;
         }
-        old_row = (int)(old_coords[0]) - '0';
+        old_row = (int)(old_coords[1]) - '0';
         old_row--;
-        old_column = tolower(old_coords[1]);
+        old_column = tolower(old_coords[0]);
 
         while (true)
         {
@@ -99,19 +100,19 @@ std::string Game::player_turn()
             cin >> new_coords;
             if (new_coords.size() != 2)
                 cout << "Wrong length of coordinates: try again!\n";
-            else if (!(std::isdigit(new_coords[0])))
-                cout << "First character is not a number: try again!\n";
-            else if (((int)(new_coords[0]) - '0') < 1 || ((int)(new_coords[0]) - '0') > 8)
-                cout << "First character is not a valid row number: try again!\n";
-            else if (m[tolower(new_coords[1])] == 0 && tolower(new_coords[1]) != 'a')
-                cout << "Second character is not a valid column: try again!\n";
+            else if (m[tolower(new_coords[0])] == 0 && tolower(new_coords[0]) != 'a')
+                cout << "First character is not a valid column: try again!\n";
+            else if (!(std::isdigit(new_coords[1])))
+                cout << "Second character is not a number: try again!\n";
+            else if (((int)(new_coords[1]) - '0') < 1 || ((int)(new_coords[1]) - '0') > 8)
+                cout << "Second character is not a valid row number: try again!\n";
             else
                 break;
         }
 
-        new_row = (int)(new_coords[0]) - '0';
+        new_row = (int)(new_coords[1]) - '0';
         new_row--;
-        new_column = tolower(new_coords[1]);
+        new_column = tolower(new_coords[0]);
         try
         {
             temp_return = (*this).move_figure(std::make_tuple(7 - old_row, m[old_column]), std::make_tuple(7 - new_row, m[new_column]));
