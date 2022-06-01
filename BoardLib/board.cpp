@@ -257,13 +257,13 @@ bool Board::validate_move(Figure *moved, tuple<int, int> const old_cord, tuple<i
         throw out_of_range("Chosen figure does not belong to you!");
     }
 
-    int steps = moved->get_num_of_moves();
+    vector<tuple<int, int>> moves = moved->get_moves();
 
     if (moved->get_figure() == 'P')
     {
         moves = get_pawn_moves(old_cord);
     }
-    vector<tuple<int, int>> moves = moved->get_moves();
+    int steps = moved->get_num_of_moves();
 
     tuple<int, int> direction;
     int delta_x, delta_y, pos_x, pos_y;
