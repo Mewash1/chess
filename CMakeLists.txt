@@ -32,7 +32,7 @@ set(PROJECT_SOURCES
     GameLib/game.cpp)
 # set(PROJECT_SOURCES)
 
-add_executable(DeepBlue_2.0 temp.cpp ${PROJECT_SOURCES})
+add_executable(DeepBlue_2-0 temp.cpp ${PROJECT_SOURCES})
 
 # add_executable(CollectionUnitTests UnitTests/CollectionUnitTest.cpp ${PROJECT_SOURCES})
 # add_executable(LoggerUnitTests UnitTests/LoggerUnitTest.cpp ${PROJECT_SOURCES})

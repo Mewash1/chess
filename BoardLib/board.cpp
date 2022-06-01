@@ -62,7 +62,8 @@ void Board::print_row(int i)
     hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     SetConsoleTextAttribute(hConsole, 15);*/
     srand(time(NULL));
-    if (current_player->get_color() == 'w')
+    if (current_player->get_color() == 'w') // no turning
+    // if (true)
     {
         for (int j = 0; j < 8; j++)
         {
@@ -94,7 +95,7 @@ void Board::print()
     /*HANDLE hConsole;
     hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     SetConsoleTextAttribute(hConsole, 14);*/
-    std::cout << "\033c";
+    std::cout << "\033c"; // clear
     std::cout << "\033[33m-------------------------------------" << std::endl;
     if (current_player->get_color() == 'w')
         std::cout << "|   | A | B | C | D | E | F | G | H |" << std::endl;
@@ -104,6 +105,7 @@ void Board::print()
     for (int i = 0; i < 8; i++)
     {
         // SetConsoleTextAttribute(hConsole, 14);
+        // if (true)
         if (current_player->get_color() == 'w')
             std::cout << "\033[33m| " << (8 - i) << " |\033[0m";
         else
@@ -130,7 +132,8 @@ void Board::print_graveyard()
             temp.push_back(graveyard[i]->get_token());
     }
     cout << "\033[31m" << endl;
-    for (int j = 0; j < temp.size(); j++) {
+    for (int j = 0; j < temp.size(); j++)
+    {
         cout << temp[j] << ' ';
     }
     cout << "\033[0m" << endl;
@@ -207,9 +210,9 @@ std::string Board::move_figure(tuple<int, int> old_cord, tuple<int, int> new_cor
 
     cout << temp << endl;
     if (end_throw)
-        {
-            throw logic_error("you will be at check");
-        }
+    {
+        throw logic_error("you will be at check");
+    }
 
     return temp;
 }

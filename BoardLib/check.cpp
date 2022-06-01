@@ -52,7 +52,7 @@ bool Board::mate_check()
                         try
                         {
                             move_figure(make_tuple(x, y), make_tuple(nx, ny), true);
-                            cout << x << y << " " << nx << ny << endl;
+                            // cout << x << y << " " << nx << ny << endl;
                             return false;
                         }
                         catch (...)
