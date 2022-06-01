@@ -138,12 +138,12 @@ void Game::cpu_turn()
             }
             catch (const std::exception &exc)
             {
-                cout << exc.what() << endl;
+                // cout << exc.what() << endl;
                 continue;
             }
             catch (...)
             {
-                cout << "unnkown error" << endl;
+                // cout << "unnkown error" << endl;
                 continue;
             }
             break;

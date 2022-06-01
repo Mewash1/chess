@@ -2,6 +2,7 @@
 // #include "../PlayerLib/player.h"
 #include <vector>
 #include <tuple>
+#include <map>
 //#include <Windows.h>
 
 using namespace std;
@@ -115,8 +116,10 @@ void Board::print()
     std::cout << current_player->get_name() << "'s turn\n";
 }
 
-void Board::print_graveyard() {
-    for (int i = 0; i < 30; ++i) {
+void Board::print_graveyard()
+{
+    for (int i = 0; i < 30; ++i)
+    {
         if (graveyard[i] != 0)
             cout << graveyard[i] << ' ';
         else
@@ -138,6 +141,8 @@ bool Board::at_check(Player *player)
     return false;
 }
 
+std::map<int, char> m = {{0, 'a'}, {1, 'b'}, {2, 'c'}, {3, 'd'}, {4, 'e'}, {5, 'f'}, {6, 'g'}, {7, 'h'}};
+
 std::string Board::move_figure(tuple<int, int> old_cord, tuple<int, int> new_cord)
 {
     if (table[get<0>(old_cord)][get<1>(old_cord)] == NULL)
@@ -148,15 +153,15 @@ std::string Board::move_figure(tuple<int, int> old_cord, tuple<int, int> new_cor
     Figure *moved_piece = table[get<0>(old_cord)][get<1>(old_cord)];
 
     string temp = "";
-    temp += to_string(get<0>(old_cord));
+    temp += to_string(7 - get<0>(old_cord));
     temp += " ";
-    temp += to_string(get<1>(old_cord));
-    temp += " ";
+    temp += to_string(m[get<1>(old_cord)]);
+    temp += " (";
     temp += moved_piece->get_token();
+    temp += ") ---> ";
+    temp += to_string(7 - get<0>(new_cord));
     temp += " ";
-    temp += to_string(get<0>(new_cord));
-    temp += " ";
-    temp += to_string(get<1>(new_cord));
+    temp += to_string(m[get<1>(new_cord)]);
 
     if (!validate_move(moved_piece, old_cord, new_cord))
         throw out_of_range("illegal move!");
@@ -168,11 +173,16 @@ std::string Board::move_figure(tuple<int, int> old_cord, tuple<int, int> new_cor
     }
     table[get<0>(new_cord)][get<1>(new_cord)] = moved_piece;
     table[get<0>(old_cord)][get<1>(old_cord)] = NULL;
-    cout << temp << endl;
+    // cout << temp << endl;
 
     if (moved_piece->get_figure() == 'P')
     {
         moved_piece->set_num_of_moves(1);
+    }
+    
+    if (moved_piece->get_figure() == 'K')
+    {
+        current_player->set_king(new_cord);
     }
 
     return temp;
