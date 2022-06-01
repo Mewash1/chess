@@ -259,6 +259,12 @@ bool Board::validate_move(Figure *moved, tuple<int, int> const old_cord, tuple<i
 
     int steps = moved->get_num_of_moves();
     vector<tuple<int, int>> moves = moved->get_moves();
+
+    if (moved->get_figure() == 'P')
+    {
+        moves = get_pawn_moves(old_cord);
+    }
+
     tuple<int, int> direction;
     int delta_x, delta_y, pos_x, pos_y;
     delta_x = get<0>(cords) - get<0>(old_cord);
@@ -303,4 +309,39 @@ void Board::take_figure(Figure *looser)
     graveyard.push_back(looser);
     looser->take();
     purgatory = NULL;
+}
+
+vector<tuple<int, int>> Board::get_pawn_moves(tuple<int, int> old_cord)
+{
+    vector<tuple<int, int>> moves;
+    int pos_x = get<0>(old_cord);
+    int pos_y = get<1>(old_cord);
+    if (table[pos_x][pos_y] == NULL)
+    {
+        return moves;
+    }
+
+    if (table[pos_x][pos_y]->get_color() == 'b')
+    {
+        if (table[pos_x + 1][pos_y + 1] != NULL)
+            moves.push_back(make_tuple(1, 1));
+        if (table[pos_x + 1][pos_y] == NULL)
+            moves.push_back(make_tuple(1, 0));
+        if (table[pos_x + 2][pos_y] == NULL && !table[pos_x][pos_y]->is_moved())
+            table[pos_x][pos_y]->set_num_of_moves(2);
+        if (table[pos_x + 1][pos_y - 1] != NULL)
+            moves.push_back(make_tuple(1, -11));
+    }
+    else
+    {
+        if (table[pos_x - 1][pos_y + 1] != NULL)
+            moves.push_back(make_tuple(-1, 1));
+        if (table[pos_x - 1][pos_y] == NULL)
+            moves.push_back(make_tuple(-1, 0));
+        if (table[pos_x - 2][pos_y] == NULL && !table[pos_x][pos_y]->is_moved())
+            table[pos_x][pos_y]->set_num_of_moves(2);
+        if (table[pos_x - 1][pos_y - 1] != NULL)
+            moves.push_back(make_tuple(-1, -1));
+    }
+    return moves;
 }

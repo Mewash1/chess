@@ -13,20 +13,9 @@ class Pawn : public Figure
 public:
     Pawn(char color)
     {
-        if (color == 'b')
-        {
-            moves = {std::make_tuple(1, 0)};
-            token = 'p';
-            // token = '♙';
-        }
-        else
-        {
-            moves = {std::make_tuple(-1, 0)};
-            token = 'P';
-            // token = '♟';
-        }
+        token = 'P';
         figure = 'P';
-        num_of_moves = 2;
+        num_of_moves = 1;
         this->color = color;
         taken = false;
         price = 1;

@@ -50,3 +50,8 @@ void Figure::set_num_of_moves(int new_num)
 {
     num_of_moves = new_num;
 }
+
+bool Figure::is_moved() const noexcept
+{
+    return this->moved;
+}
