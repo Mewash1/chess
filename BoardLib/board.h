@@ -19,8 +19,10 @@ public:
     Board(Player *player1, Player *player2);
     void remove_figure();
     std::string move_figure(tuple<int, int>, tuple<int, int>, bool simulate = false);
+    vector<tuple<int, int>> get_pawn_moves(tuple<int, int>);
+
     // void kill_figure(tuple<int, int>);
-    void revive_figure(int graveyard_index, tuple<int, int>);
+    void promote_figure(int graveyard_index, tuple<int, int>);
     void dump();
     Player *end_turn(); // end turn returns next player
     void print();
