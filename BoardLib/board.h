@@ -14,6 +14,9 @@ protected:
     bool validate_move(Figure *moved, tuple<int, int> old_cord, tuple<int, int> cords);
     bool at_check(Player *player);
     void take_figure(Figure *looser);
+    std::string long_cast() noexcept;
+    std::string short_cast() noexcept;
+    std::string castling(tuple<int, int>) noexcept;
 
 public:
     Board() {}; //used only for testing

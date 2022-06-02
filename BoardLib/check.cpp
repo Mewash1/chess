@@ -115,3 +115,105 @@ void Board::promote_figure(tuple<int, int> position)
     }
     table[get<0>(position)][get<1>(position)] = fig;
 }
+
+std::string Board::long_cast() noexcept
+{
+    // make_tuple(x,4) and table[x][4] are pos of a player king at the begining, later checked
+    int x;
+    if (current_player->get_color() == 'w')
+        x = 7;
+    else
+        x = 0;
+
+    if (table[x][4] != NULL && table[x][4]->get_figure() == 'K' && !table[x][4]->is_moved())     // check if king is where it should
+        if (table[x][0] != NULL && table[x][0]->get_figure() == 'R' && !table[x][0]->is_moved()) // check if rook is where it should
+            if (!table[x][0]->is_moved())
+                if (table[x][1] == NULL && table[x][2] == NULL && table[x][3] == NULL)
+                {
+                    try
+                    {
+                        move_figure(make_tuple(x, 4), make_tuple(x, 3), true);
+                        table[x][4]->set_num_of_moves(2);
+                        move_figure(make_tuple(x, 4), make_tuple(x, 2), true); // will throw if movement is illegal -> check at any point
+                    }
+                    catch (const std::exception &e)
+                    {
+                        table[x][4]->set_num_of_moves(1);
+                        return "";
+                    }
+
+                    // acctual move of a king
+                    move_figure(make_tuple(x, 4), make_tuple(x, 2)); // movement shall be 2
+                    table[x][2]->set_num_of_moves(1);                // reset movement
+                    table[x][3] = table[x][0];
+                    table[x][0] = NULL;
+                    return "-ooo-";
+                }
+    return "";
+}
+
+std::string Board::short_cast() noexcept
+{
+    // make_tuple(x,4) and table[x][4] are pos of a player king at the begining, later checked
+    int x;
+    if (current_player->get_color() == 'w')
+        x = 7;
+    else
+        x = 0;
+
+    if (table[x][4] != NULL && table[x][4]->get_figure() == 'K' && !table[x][4]->is_moved())     // check if king is where it should
+        if (table[x][7] != NULL && table[x][7]->get_figure() == 'R' && !table[x][0]->is_moved()) // check if rook is where it should
+            if (!table[x][7]->is_moved())
+                if (table[x][5] == NULL && table[x][6] == NULL)
+                {
+                    try
+                    {
+                        move_figure(make_tuple(x, 4), make_tuple(x, 5), true);
+                        table[x][4]->set_num_of_moves(2);
+                        move_figure(make_tuple(x, 4), make_tuple(x, 6), true); // will throw if movement is illegal -> check at any point
+                    }
+                    catch (const std::exception &e)
+                    {
+                        table[x][4]->set_num_of_moves(1);
+                        return "";
+                    }
+
+                    // acctual move of a king
+                    move_figure(make_tuple(x, 4), make_tuple(x, 6)); // movement shall be 2
+                    table[x][6]->set_num_of_moves(1);                // reset movement
+                    table[x][5] = table[x][7];
+                    table[x][7] = NULL;
+                    return "-oo-";
+                }
+    return "";
+}
+
+std::string Board::castling(tuple<int, int> new_cords) noexcept
+{
+    if (!at_check(current_player))
+    {
+        if (current_player->get_color() == 'w')
+        {
+            if (new_cords == make_tuple(7, 2)) // white long to left
+            {
+                return long_cast();
+            }
+            else if (new_cords == make_tuple(7, 6)) // white short to right
+            {
+                return short_cast();
+            }
+        }
+        else // black castling
+        {
+            if (new_cords == make_tuple(0, 2)) // black long to left
+            {
+                return long_cast();
+            }
+            else if (new_cords == make_tuple(0, 6)) // white short to right
+            {
+                return short_cast();
+            }
+        }
+    }
+    return "";
+}
