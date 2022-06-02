@@ -1,6 +1,8 @@
 #include "board.h"
 #include <vector>
 #include <tuple>
+#include <stdlib.h> /* srand, rand */
+#include <time.h>
 
 using namespace std;
 
@@ -70,38 +72,46 @@ bool Board::mate_check()
 void Board::promote_figure(tuple<int, int> position)
 {
     std::string selection;
-    while (true)
-    {
-        cout << "select figure you want to promote pawn to:" << endl
-             << "Q, B, H, R:" << endl;
-        cin >> selection;
+    if (current_player->get_humanity())
+        while (true)
+        {
+            cout << "Select figure you want to promote pawn to:" << endl
+                 << "Q, B, H, R:" << endl;
+            cin >> selection;
 
-        if (selection.size() != 1)
-            cout << "Wrong length of coordinates: try again!\n";
-        else if (toupper(selection[0]) != 'Q' && toupper(selection[0]) != 'B' && toupper(selection[0]) != 'H' && toupper(selection[0]) != 'R')
-            cout << "wrong selection, try again" << endl;
-        else
-            break;
+            if (selection.size() != 1)
+                cout << "Wrong length of coordinates: try again!\n";
+            else if (toupper(selection[0]) != 'Q' && toupper(selection[0]) != 'B' && toupper(selection[0]) != 'H' && toupper(selection[0]) != 'R')
+                cout << "wrong selection, try again" << endl;
+            else
+                break;
+        }
+    else
+    {
+        srand(time(NULL));
+        vector<char> choices = {'Q', 'B', 'H', 'R'};
+        selection = choices[rand() % 4];
     }
     delete table[get<0>(position)][get<1>(position)];
-    switch (selection[0])
+    Figure *fig;
+    switch (toupper(char(selection[0])))
     {
     case 'Q':
-        table[get<0>(position)][get<1>(position)] = new Queen(current_player->get_color());
-        current_player.
+        fig = new Queen(current_player->get_color());
         break;
     case 'B':
-        /* code */
+        fig = new Bishop(current_player->get_color());
         break;
     case 'H':
-        /* code */
+        fig = new Horse(current_player->get_color());
         break;
     case 'R':
-        /* code */
+        fig = new Rook(current_player->get_color());
         break;
     default:
         cout << "failed to promote" << endl;
         promote_figure(position);
         break;
     }
+    table[get<0>(position)][get<1>(position)] = fig;
 }

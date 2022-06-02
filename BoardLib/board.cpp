@@ -205,10 +205,12 @@ std::string Board::move_figure(tuple<int, int> old_cord, tuple<int, int> new_cor
 
     if (moved_piece->get_figure() == 'P')
     {
+        if ((get<0>(new_cord) == 0 || get<0>(new_cord) == 7) && !simulate)
+            promote_figure(new_cord);
         moved_piece->set_num_of_moves(1);
     }
 
-    cout << temp << endl;
+    // cout << temp << endl;
     if (end_throw)
     {
         throw logic_error("you will be at check");
@@ -330,7 +332,7 @@ vector<tuple<int, int>> Board::get_pawn_moves(tuple<int, int> old_cord)
         if (table[pos_x + 2][pos_y] == NULL && !(table[pos_x][pos_y]->is_moved()))
             table[pos_x][pos_y]->set_num_of_moves(2);
         if (table[pos_x + 1][pos_y - 1] != NULL)
-            moves.push_back(make_tuple(1, -11));
+            moves.push_back(make_tuple(1, -1));
     }
     else
     {
