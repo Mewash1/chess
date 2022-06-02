@@ -66,3 +66,42 @@ bool Board::mate_check()
     }
     return true;
 }
+
+void Board::promote_figure(tuple<int, int> position)
+{
+    std::string selection;
+    while (true)
+    {
+        cout << "select figure you want to promote pawn to:" << endl
+             << "Q, B, H, R:" << endl;
+        cin >> selection;
+
+        if (selection.size() != 1)
+            cout << "Wrong length of coordinates: try again!\n";
+        else if (toupper(selection[0]) != 'Q' && toupper(selection[0]) != 'B' && toupper(selection[0]) != 'H' && toupper(selection[0]) != 'R')
+            cout << "wrong selection, try again" << endl;
+        else
+            break;
+    }
+    delete table[get<0>(position)][get<1>(position)];
+    switch (selection[0])
+    {
+    case 'Q':
+        table[get<0>(position)][get<1>(position)] = new Queen(current_player->get_color());
+        current_player.
+        break;
+    case 'B':
+        /* code */
+        break;
+    case 'H':
+        /* code */
+        break;
+    case 'R':
+        /* code */
+        break;
+    default:
+        cout << "failed to promote" << endl;
+        promote_figure(position);
+        break;
+    }
+}

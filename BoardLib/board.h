@@ -22,7 +22,7 @@ public:
     vector<tuple<int, int>> get_pawn_moves(tuple<int, int>);
 
     // void kill_figure(tuple<int, int>);
-    void promote_figure(int graveyard_index, tuple<int, int>);
+    void promote_figure(tuple<int, int>);
     void dump();
     Player *end_turn(); // end turn returns next player
     void print();
