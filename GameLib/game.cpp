@@ -17,46 +17,62 @@ Game::Game()
 void Game::menu()
 {
     int gamemode;
+    char color;
     cout << "Welcome to CHESS!\n";
     while (true)
     {
-        cout << "Please choose the game mode: \n 1. VS Human \n 2. VS Computer\n";
+        cout << "Please choose the game mode: \n 1. Human \n 2. Ai vs Ai\n";
         cin >> gamemode;
         if (gamemode != 1 && gamemode != 2)
             cout << "Wrong option. Try again! \n";
         else
             break;
     }
-    char color;
-    while (true)
+    if (gamemode == 1) // skip manual color selectrion in AvA mode
     {
-        cout << "Please choose your color: \n(w)hite\n(b)lack\n";
-        cin >> color;
-        if (color != 'w' && color != 'b')
-            cout << "Wrong option. Try again! \n";
-        else
-            break;
+        while (true)
+        {
+            cout << "Please choose your color: \n(w)hite\n(b)lack\n";
+            cin >> color;
+            if (color != 'w' && color != 'b')
+                cout << "Wrong option. Try again! \n";
+            else
+                break;
+        }
+    }
+    else
+    {
+        color = 'w';
     }
 
-    // Player *player1 = new Player(color, "Player 1", false);
-    Player *player1 = new Player(color, "Player 1");
-    if (color == 'w')
+    if (gamemode == 1)
+        player1 = new Player(color, "Player 1");
+    else
+        player1 = new Player(color, "Ai 1.072", false);
+
+    if (color == 'w') // swap color betwen player creation
         color = 'b';
     else
         color = 'w';
 
-    Player *player2 = new Player(color, "Player 2", false);
+    if (gamemode == 1)
+        while (true)
+        {
+            cout << "Please choose the opponent mode: \n 1. VS Human \n 2. VS Computer\n";
+            cin >> gamemode;
+            if (gamemode != 1 && gamemode != 2)
+                cout << "Wrong option. Try again! \n";
+            else
+                break;
+        }
 
     if (gamemode == 1)
-    {
-        delete player2;
         player2 = new Player(color, "Player 2");
-    }
+    else
+        player2 = new Player(color, "Ai 2.21", false);
 
     Board *board = new Board(player1, player2);
 
-    this->player1 = player1;
-    this->player2 = player2;
     if (this->player1->get_color() == 'w')
         current_player = player1;
     else
@@ -86,7 +102,7 @@ std::string Game::player_turn()
                 cout << "Second character is not a number: try again!\n";
             else if (((int)(old_coords[1]) - '0') < 1 || ((int)(old_coords[1]) - '0') > 8)
                 cout << "Second character is not a valid row number: try again!\n";
-            
+
             else
                 break;
         }

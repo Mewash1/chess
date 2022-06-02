@@ -18,13 +18,20 @@ int main()
     {
         if (game.get_current_player()->get_humanity())
             game.show_board();
+
+        if (!game.get_player1()->get_humanity() && !game.get_player2()->get_humanity()) // show borad only for white bot if both players are bots
+        {
+            if (game.get_current_player()->get_color() == 'w')
+                game.show_board();
+            std::this_thread::sleep_for(std::chrono::milliseconds(150)); // sleep for more redable gameplay
+        }
+
         cout << print_string << endl;
         if (game.get_current_player()->get_humanity())
             print_string = game.player_turn();
         else
             print_string = game.cpu_turn();
         game.switch_player();
-        // std::this_thread::sleep_for(std::chrono::milliseconds(500));
     }
     game.show_board();
     cout << print_string << endl;
