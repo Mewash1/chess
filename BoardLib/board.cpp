@@ -39,23 +39,6 @@ Board::Board(Player *player1, Player *player2)
         current_player = player2;
 }
 
-// void Board::dump()
-// {
-//     for (int y = 7; y >= 0; --y)
-//     {
-//         for (int i = 0; i < 8; i++)
-//         {
-//             if (table[i][y] == NULL)
-//             {
-//                 cout << " ";
-//                 break;
-//             }
-//             cout << table[i][y]->get_token();
-//         }
-//         cout << endl;
-//     }
-// }
-
 void Board::print_row(int i)
 {
     /*HANDLE hConsole;
@@ -159,13 +142,23 @@ std::string Board::move_figure(tuple<int, int> old_cord, tuple<int, int> new_cor
     Figure *moved_piece = table[get<0>(old_cord)][get<1>(old_cord)];
 
     string temp = "";
-    temp += to_string(8 - get<0>(old_cord));
     temp += (m[get<1>(old_cord)]);
+    temp += to_string(8 - get<0>(old_cord));
     temp += "(";
     temp += moved_piece->get_token();
     temp += ") ---> ";
-    temp += to_string(8 - get<0>(new_cord));
     temp += (m[get<1>(new_cord)]);
+    temp += to_string(8 - get<0>(new_cord));
+
+    if (moved_piece->get_figure() == 'K') // try castling
+    {
+        std::string cast = castling(new_cord);
+        if (cast != "")
+        {
+            temp += cast;
+            return temp;
+        }
+    }
 
     if (!validate_move(moved_piece, old_cord, new_cord))
         throw out_of_range("illegal move!");
