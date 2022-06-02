@@ -30,6 +30,7 @@ public:
     void print_graveyard();
     void switch_current_player();
     bool mate_check();
+    std::string castling(tuple<int, int>);
 };
 
 #endif
