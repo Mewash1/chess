@@ -89,7 +89,7 @@ void Board::promote_figure(tuple<int, int> position)
     else
     {
         srand(time(NULL));
-        vector<char> choices = {'Q', 'Q', 'B', 'H', 'R'};
+        vector<char> choices = {'Q', 'Q', 'B', 'H', 'R'}; // queen twice as likely to be selected
         selection = choices[rand() % 5];
     }
     delete table[get<0>(position)][get<1>(position)];
