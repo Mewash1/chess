@@ -56,7 +56,7 @@ Board::Board(Player *player1, Player *player2)
 //     }
 // }
 
-//prints were here
+// prints were here
 
 void Board::switch_current_player()
 {
@@ -136,9 +136,9 @@ std::string Board::move_figure(tuple<int, int> old_cord, tuple<int, int> new_cor
 
     if (moved_piece->get_figure() == 'P')
     {
+        moved_piece->set_num_of_moves(1);
         if ((get<0>(new_cord) == 0 || get<0>(new_cord) == 7) && !simulate)
             promote_figure(new_cord);
-        moved_piece->set_num_of_moves(1);
     }
 
     // cout << temp << endl;

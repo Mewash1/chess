@@ -25,7 +25,7 @@ public:
     vector<tuple<int, int>> get_pawn_moves(tuple<int, int>);
     bool at_check(Player *player);
 
-    void promote_figure(tuple<int, int>);
+    void promote_figure(tuple<int, int>, char = ' ');
     Player *end_turn(); // end turn returns next player
     void print();
     void print_row(int i);

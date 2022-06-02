@@ -407,10 +407,11 @@ TEST(Promote, PawnTOQueenMoves)
 {
     TestingBoard b(new TestingPlayer('w', "Player 1", true), new TestingPlayer('b', "Player 2", true), true);
     b.add_new_figure(new King('w'), 0, 0);
-    b.add_new_figure(new Pawn('w'), 6, 7);
-    b.move_figure(std::make_tuple(6, 7), std::make_tuple(7, 7));
-    ASSERT_EQ(b.get_figure(7, 7)->get_num_of_moves(), 8);
-    // b.move_figure(std::make_tuple(7, 7), )
+    b.add_new_figure(new Pawn('w'), 1, 7);
+    b.promote_figure(std::make_tuple(1, 7), 'Q');
+    ASSERT_EQ(b.get_figure(1, 7)->get_figure(), 'Q');
+    ASSERT_EQ(b.get_figure(1, 7)->get_num_of_moves(), 8);
+    b.move_figure(std::make_tuple(1, 7), std::make_tuple(7, 7));
 }
 
 TEST(Castling, LongWhiteCast)

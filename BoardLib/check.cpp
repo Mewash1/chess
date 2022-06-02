@@ -81,32 +81,31 @@ bool Board::mate_check()
     return true;
 }
 
-void Board::promote_figure(tuple<int, int> position)
+void Board::promote_figure(tuple<int, int> position, char new_fig)
 {
-    std::string selection;
-    if (current_player->get_humanity())
-        while (true)
-        {
-            cout << "Select figure you want to promote pawn to:" << endl
-                 << "Q, B, H, R:" << endl;
-            cin >> selection;
+    char selection = new_fig;
+    if (new_fig == ' ')
+        if (current_player->get_humanity())
+            while (true)
+            {
+                cout << "Select figure you want to promote pawn to:" << endl
+                     << "Q, B, H, R:" << endl;
+                cin >> selection;
 
-            if (selection.size() != 1)
-                cout << "Wrong length of coordinates: try again!\n";
-            else if (toupper(selection[0]) != 'Q' && toupper(selection[0]) != 'B' && toupper(selection[0]) != 'H' && toupper(selection[0]) != 'R')
-                cout << "wrong selection, try again" << endl;
-            else
-                break;
+                if (toupper(selection) != 'Q' && toupper(selection) != 'B' && toupper(selection) != 'H' && toupper(selection) != 'R')
+                    cout << "wrong selection, try again" << endl;
+                else
+                    break;
+            }
+        else
+        {
+            srand(time(NULL));
+            char choices[5] = {'Q', 'Q', 'B', 'H', 'R'}; // queen twice as likely to be selected
+            selection = choices[rand() % 5];
         }
-    else
-    {
-        srand(time(NULL));
-        vector<char> choices = {'Q', 'Q', 'B', 'H', 'R'}; // queen twice as likely to be selected
-        selection = choices[rand() % 5];
-    }
     delete table[get<0>(position)][get<1>(position)];
     Figure *fig;
-    switch (toupper(char(selection[0])))
+    switch (toupper(selection))
     {
     case 'Q':
         fig = new Queen(current_player->get_color());
