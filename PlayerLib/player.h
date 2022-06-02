@@ -5,7 +5,7 @@ using std::vector;
 
 class Player
 {
-private:
+protected:
     bool human;
     char color;
     std::string name;

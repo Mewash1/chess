@@ -20,5 +20,6 @@ public:
         taken = false;
         price = 1;
     }
+    char get_figure() {return figure;}
 };
 #endif
