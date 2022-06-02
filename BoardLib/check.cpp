@@ -8,6 +8,18 @@ using namespace std;
 
 bool Board::at_check(Player *player)
 {
+    char _color = current_player->get_color();
+    int _count_dead = 0;
+    for (int i = 0; i < graveyard.size(); ++i)
+    {
+        if (graveyard[i]->get_color() == _color)
+        {
+            ++_count_dead;
+        }
+    }
+    if (_count_dead == 15)
+        return true;
+
     tuple<int, int> king_pos = player->get_king();
     switch_current_player();
 
