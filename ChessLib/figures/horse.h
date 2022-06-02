@@ -1,41 +1,40 @@
 #include "figure.h"
 #include <tuple>
-#ifndef KNIGHT_H
-#define KNIGHT_H
+#ifndef HORSE_H
+#define HORSE_H
 
 using std::cout;
 using std::endl;
-using std::vector;
 using std::tuple;
+using std::vector;
 
-
-class Knight : public Figure
+class Horse : public Figure
 {
 public:
-    Knight(char color)
+    Horse(char color)
     {
         moves = {
-            std::make_tuple(1, 2), 
+            std::make_tuple(1, 2),
             std::make_tuple(-1, 2),
             std::make_tuple(2, 1),
-            std::make_tuple(-2, 1), 
+            std::make_tuple(-2, 1),
 
-            std::make_tuple(1, -2), 
+            std::make_tuple(1, -2),
             std::make_tuple(-1, -2),
             std::make_tuple(2, -1),
-            std::make_tuple(-2, -1), 
+            std::make_tuple(-2, -1),
         };
         figure = 'H';
         if (color == 'b')
             token = 'h';
-            // token = '♘';
+        // token = '♘';
         else
             token = 'H';
-            // token = '♞';
+        // token = '♞';
         num_of_moves = 1;
         this->color = color;
         taken = false;
-        price = 3;   
+        price = 3;
     }
 };
 #endif
