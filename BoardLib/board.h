@@ -26,7 +26,6 @@ public:
     bool at_check(Player *player);
 
     void promote_figure(tuple<int, int>);
-    void dump();
     Player *end_turn(); // end turn returns next player
     void print();
     void print_row(int i);
