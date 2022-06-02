@@ -25,7 +25,7 @@ public:
     Figure() {}
     vector<char> figures;
     // geters
-    char get_figure() const noexcept;
+    virtual char get_figure() = 0;
     char get_color() const noexcept;
     int get_num_of_moves() const noexcept;
     unsigned int take() noexcept;
@@ -34,6 +34,7 @@ public:
     char get_token() const noexcept;
     // seters
     void set_num_of_moves(int new_num);
+    void set_moved(bool move) noexcept {moved = move;}
     bool is_moved() const noexcept;
 };
 

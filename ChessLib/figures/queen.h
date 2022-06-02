@@ -38,5 +38,6 @@ public:
         taken = false;
         price = 9;   
     }
+    char get_figure() {return figure;}
 };
 #endif

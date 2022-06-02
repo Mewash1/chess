@@ -94,7 +94,8 @@ std::string Board::move_figure(tuple<int, int> old_cord, tuple<int, int> new_cor
         purgatory = table[get<0>(new_cord)][get<1>(new_cord)];
         // ->take();
     }
-    table[get<0>(new_cord)][get<1>(new_cord)] = moved_piece; // moving pieces
+    table[get<0>(new_cord)][get<1>(new_cord)] = moved_piece;
+    table[get<0>(new_cord)][get<1>(new_cord)]->set_moved(true);
     table[get<0>(old_cord)][get<1>(old_cord)] = NULL;
     if (moved_piece->get_figure() == 'K')
     {
@@ -109,6 +110,7 @@ std::string Board::move_figure(tuple<int, int> old_cord, tuple<int, int> new_cor
         table[get<0>(new_cord)][get<1>(new_cord)] = purgatory;
         purgatory = NULL;
         table[get<0>(old_cord)][get<1>(old_cord)] = moved_piece;
+        table[get<0>(old_cord)][get<1>(old_cord)]->set_moved(false);
         if (moved_piece->get_figure() == 'K')
         {
             current_player->set_king(old_cord);
