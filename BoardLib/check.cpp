@@ -143,13 +143,35 @@ std::string Board::castling(tuple<int, int> new_cords)
                                 }
 
                                 // acctual move of a king
-                                move_figure(king, make_tuple(7, 2)); // movement shall be 2
-                                table[get<0>(king)][get<1>(king)]->set_num_of_moves(1);//reset movement
+                                move_figure(king, make_tuple(7, 2));                    // movement shall be 2
+                                table[get<0>(king)][get<1>(king)]->set_num_of_moves(1); // reset movement
+                                return "-oo-";
                             }
             }
             else if (new_cords == make_tuple(7, 6))
             {
-                /* code */
+                if (!table[get<0>(king)][get<1>(king)]->is_moved())
+                    if (table[7][0] != NULL && table[7][0]->get_figure() == 'R') // check if rook is where it should
+                        if (!table[7][0]->is_moved())
+                            if (table[7][1] == NULL && table[7][2] == NULL && table[7][3] == NULL)
+                            {
+                                try
+                                {
+                                    move_figure(king, make_tuple(7, 3), true);
+                                    table[get<0>(king)][get<1>(king)]->set_num_of_moves(2);
+                                    move_figure(king, make_tuple(7, 2), true); // will throw if movement is illegal -> check at any point
+                                }
+                                catch (const std::exception &e)
+                                {
+                                    table[get<0>(king)][get<1>(king)]->set_num_of_moves(1);
+                                    throw logic_error("illegal move");
+                                }
+
+                                // acctual move of a king
+                                move_figure(king, make_tuple(7, 2));                    // movement shall be 2
+                                table[get<0>(king)][get<1>(king)]->set_num_of_moves(1); // reset movement
+                                return "-oo-";
+                            }
             }
             else
             {
