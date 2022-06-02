@@ -6,7 +6,7 @@
 
 class Board
 {
-private:
+protected:
     Player *player1, *player2, *current_player;
     Figure *table[8][8] = {{NULL}};
     vector<Figure *> graveyard;
@@ -16,6 +16,7 @@ private:
     void take_figure(Figure *looser);
 
 public:
+    Board() {}; //used only for testing
     Board(Player *player1, Player *player2);
     void remove_figure();
     std::string move_figure(tuple<int, int>, tuple<int, int>, bool simulate = false);
