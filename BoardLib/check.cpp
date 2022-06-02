@@ -37,6 +37,18 @@ bool Board::at_check(Player *player)
 
 bool Board::mate_check()
 {
+    char _color = current_player->get_color();
+    int _count_dead = 0;
+    for (int i = 0; i < graveyard.size(); ++i)
+    {
+        if (graveyard[i]->get_color() == _color)
+        {
+            ++_count_dead;
+        }
+    }
+    if (_count_dead == 15)
+        return true;
+
     for (int y = 0; y < 8; y++)
     {
         for (int x = 0; x < 8; x++)

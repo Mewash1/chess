@@ -37,6 +37,9 @@ int main()
     }
     game.show_board();
     cout << print_string << endl;
-    cout << game.get_current_player()->get_name() << " lost" << endl;
+    if (game.get_board()->at_check(game.get_current_player()))
+        cout << game.get_current_player()->get_name() << " lost" << endl;
+    else
+        cout << "it's a Pat, no winner" << endl;
     return 0;
 }
