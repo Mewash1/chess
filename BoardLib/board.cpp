@@ -150,7 +150,7 @@ std::string Board::move_figure(tuple<int, int> old_cord, tuple<int, int> new_cor
     temp += (m[get<1>(new_cord)]);
     temp += to_string(8 - get<0>(new_cord));
 
-    if (moved_piece->get_figure() == 'K') // try castling
+    if (moved_piece->get_figure() == 'K' && moved_piece->get_num_of_moves() == 1) // try castling
     {
         std::string cast = castling(new_cord);
         if (cast != "")

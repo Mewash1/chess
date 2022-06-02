@@ -144,7 +144,7 @@ std::string Board::long_cast() noexcept
 
                     // acctual move of a king
                     move_figure(make_tuple(x, 4), make_tuple(x, 2)); // movement shall be 2
-                    table[x][4]->set_num_of_moves(1);                // reset movement
+                    table[x][2]->set_num_of_moves(1);                // reset movement
                     table[x][3] = table[x][0];
                     table[x][0] = NULL;
                     return "-ooo-";
@@ -180,7 +180,7 @@ std::string Board::short_cast() noexcept
 
                     // acctual move of a king
                     move_figure(make_tuple(x, 4), make_tuple(x, 6)); // movement shall be 2
-                    table[x][4]->set_num_of_moves(1);                // reset movement
+                    table[x][6]->set_num_of_moves(1);                // reset movement
                     table[x][5] = table[x][7];
                     table[x][7] = NULL;
                     return "-oo-";
