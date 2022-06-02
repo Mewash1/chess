@@ -114,6 +114,7 @@ void Board::promote_figure(tuple<int, int> position)
         break;
     }
     table[get<0>(position)][get<1>(position)] = fig;
+    current_player->add_figure(fig);
 }
 
 std::string Board::long_cast() noexcept
@@ -162,7 +163,7 @@ std::string Board::short_cast() noexcept
         x = 0;
 
     if (table[x][4] != NULL && table[x][4]->get_figure() == 'K' && !table[x][4]->is_moved())     // check if king is where it should
-        if (table[x][7] != NULL && table[x][7]->get_figure() == 'R' && !table[x][0]->is_moved()) // check if rook is where it should
+        if (table[x][7] != NULL && table[x][7]->get_figure() == 'R' && !table[x][7]->is_moved()) // check if rook is where it should
             if (!table[x][7]->is_moved())
                 if (table[x][5] == NULL && table[x][6] == NULL)
                 {
