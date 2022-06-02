@@ -13,6 +13,7 @@ protected:
     tuple<int, int> king_position;
 
 public:
+    Player() {};
     Player(char color, std::string name, bool human = true) noexcept;
 
     char get_color() const noexcept { return color; }

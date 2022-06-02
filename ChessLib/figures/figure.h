@@ -34,6 +34,7 @@ public:
     char get_token() const noexcept;
     // seters
     void set_num_of_moves(int new_num);
+    void set_moved(bool move) noexcept {moved = move;}
     bool is_moved() const noexcept;
 };
 
