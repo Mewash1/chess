@@ -18,6 +18,7 @@ set(PROJECT_SOURCES
     BoardLib/board.h
     BoardLib/board.cpp
     BoardLib/check.cpp
+    BoardLib/print.cpp
     ChessLib/figures/figure.cpp
     ChessLib/figures/bishop.h
     ChessLib/figures/king.h
