@@ -48,3 +48,9 @@ void Player::set_king(tuple<int, int> new_pos) noexcept
 {
     this->king_position = new_pos;
 }
+
+Player::~Player()
+{
+    for (auto figure : figures)
+        delete figure;
+}

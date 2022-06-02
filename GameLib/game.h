@@ -10,6 +10,7 @@ private:
 
 public:
     Game();
+    ~Game();
     void menu();
     void show_board() { board->print(); }
     // void show_graveyard() { board->print_graveyard(); }

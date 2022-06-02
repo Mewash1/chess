@@ -191,3 +191,10 @@ bool Game::mate_check()
 {
     return board->mate_check();
 }
+
+Game::~Game()
+{
+    delete board;
+    delete player1;
+    delete player2;
+}
