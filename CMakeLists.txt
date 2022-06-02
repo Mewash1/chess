@@ -18,6 +18,7 @@ set(PROJECT_SOURCES
     BoardLib/board.h
     BoardLib/board.cpp
     BoardLib/check.cpp
+    BoardLib/print.cpp
     ChessLib/figures/figure.cpp
     ChessLib/figures/bishop.h
     ChessLib/figures/king.h
@@ -29,11 +30,19 @@ set(PROJECT_SOURCES
     PlayerLib/include_all_figures.h
     PlayerLib/player.h
     GameLib/game.h
-    GameLib/game.cpp)
+    GameLib/game.cpp
+    tests/TesterClasses/TestingBoard.h
+    tests/TesterClasses/TestingBoard.cpp
+    tests/TesterClasses/TestingPlayer.h
+    tests/TesterClasses/TestingPlayer.cpp)
 # set(PROJECT_SOURCES)
 
 add_executable(DeepBlue_2-0 temp.cpp ${PROJECT_SOURCES})
+add_executable(FigureTest tests/FigureTest.cpp ${PROJECT_SOURCES})
+add_executable(BoardTest tests/BoardTest.cpp ${PROJECT_SOURCES})
 
+target_link_libraries(FigureTest PUBLIC gtest_main)
+target_link_libraries(BoardTest PUBLIC gtest_main)
 # add_executable(CollectionUnitTests UnitTests/CollectionUnitTest.cpp ${PROJECT_SOURCES})
 # add_executable(LoggerUnitTests UnitTests/LoggerUnitTest.cpp ${PROJECT_SOURCES})
 # target_link_libraries(LoggerUnitTests PUBLIC gtest_main)

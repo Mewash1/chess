@@ -34,5 +34,6 @@ public:
         taken = false;
         price = 10;
     }
+    char get_figure() {return figure;}
 };
 #endif

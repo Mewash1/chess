@@ -5,7 +5,7 @@ using std::vector;
 
 class Player
 {
-private:
+protected:
     bool human;
     char color;
     std::string name;
@@ -13,7 +13,9 @@ private:
     tuple<int, int> king_position;
 
 public:
+    Player() {};
     Player(char color, std::string name, bool human = true) noexcept;
+    ~Player();
 
     char get_color() const noexcept { return color; }
     std::string get_name() const noexcept { return name; }
