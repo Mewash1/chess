@@ -103,7 +103,6 @@ void Board::promote_figure(tuple<int, int> position, char new_fig)
             char choices[5] = {'Q', 'Q', 'B', 'H', 'R'}; // queen twice as likely to be selected
             selection = choices[rand() % 5];
         }
-    delete table[get<0>(position)][get<1>(position)];
     Figure *fig;
     switch (toupper(selection))
     {
