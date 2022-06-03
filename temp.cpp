@@ -2,6 +2,7 @@
 #include "./GameLib/game.h"
 // #include "./PlayerLib/player.h"
 #include <iostream>
+#include <fstream>
 #include <map>
 #include <thread>
 #include <chrono>
@@ -14,6 +15,13 @@ int main()
     Game game;
     game.menu();
     std::string print_string = "";
+    std::string move_list = "";
+
+    if (game.get_player1()->get_color() == 'w')
+        move_list = move_list + "Player 1's color: white\n" + "Player 2's color: black\n\n";
+    else
+        move_list = move_list + "Player 1's color: black\n" + "Player 2's color: white\n\n";
+    
     while (!game.mate_check())
     {
         if (game.get_current_player()->get_humanity())
@@ -33,13 +41,42 @@ int main()
             print_string = game.player_turn();
         else
             print_string = game.cpu_turn();
+
+        move_list = move_list + game.get_current_player()->get_name() + ": " + print_string + "\n";
         game.switch_player();
     }
+    move_list = move_list + "\n";
     game.show_board();
     cout << print_string << endl;
     if (game.get_board()->at_check(game.get_current_player()))
+    {
         cout << game.get_current_player()->get_name() << " lost" << endl;
+        move_list = move_list + game.get_current_player()->get_name() + " lost\n";
+    }
     else
+    {
         cout << "it's a Pat, no winner" << endl;
-    return 0;
+        move_list = move_list + "it's a Pat, no winner\n";
+    }
+
+    char choice;
+    while (true)
+    {
+        cout << "Would you like to save your game to a file? (Y/N): ";
+        cin >> choice;
+
+        if (choice == 'Y')
+        {
+            std::ofstream file;
+            remove("saved_game.txt");
+            file.open("saved_game.txt");
+            file << move_list;
+            file.close();
+            return 0;
+        }
+        else if (choice == 'N')
+            return 0;
+        else
+            cout << "Wrong input: try again!\n";
+    }
 }
