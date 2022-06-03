@@ -39,25 +39,6 @@ Board::Board(Player *player1, Player *player2) // sets figures at their places a
         current_player = player2;
 }
 
-// void Board::dump()
-// {
-//     for (int y = 7; y >= 0; --y)
-//     {
-//         for (int i = 0; i < 8; i++)
-//         {
-//             if (table[i][y] == NULL)
-//             {
-//                 cout << " ";
-//                 break;
-//             }
-//             cout << table[i][y]->get_token();
-//         }
-//         cout << endl;
-//     }
-// }
-
-// prints were here
-
 void Board::switch_current_player() noexcept
 {
     if (current_player == player1)
@@ -69,7 +50,8 @@ void Board::switch_current_player() noexcept
 std::map<int, char> m = {{0, 'a'}, {1, 'b'}, {2, 'c'}, {3, 'd'}, {4, 'e'}, {5, 'f'}, {6, 'g'}, {7, 'h'}};
 // ^used when player gives the coordinates for their move (eg. move "a4" is translated using this map so that the program understands that)
 
-std::string Board::move_figure(tuple<int, int> old_cord, tuple<int, int> new_cord, bool simulate)
+std::string Board::move_figure(tuple<int, int> old_cord, tuple<int, int> new_cord, bool simulate) // simulate is used with at_check() when
+// we attack king to see if he's in danger
 {
     if (table[get<0>(old_cord)][get<1>(old_cord)] == NULL)
         throw out_of_range("chose an empty space");
@@ -95,12 +77,12 @@ std::string Board::move_figure(tuple<int, int> old_cord, tuple<int, int> new_cor
     // checks if there is any figure in the place user wants to move their piece on;
     if (table[get<0>(new_cord)][get<1>(new_cord)] != NULL)
     {
-        purgatory = table[get<0>(new_cord)][get<1>(new_cord)];
+        purgatory = table[get<0>(new_cord)][get<1>(new_cord)]; // purgatory is temporary graveyard
         // ->take();
     }
-    table[get<0>(new_cord)][get<1>(new_cord)] = moved_piece;
+    table[get<0>(new_cord)][get<1>(new_cord)] = moved_piece; // places moved piece into right spot
     table[get<0>(new_cord)][get<1>(new_cord)]->set_moved(true);
-    table[get<0>(old_cord)][get<1>(old_cord)] = NULL;
+    table[get<0>(old_cord)][get<1>(old_cord)] = NULL; // cleans out the old spot of the figure
     if (moved_piece->get_figure() == 'K')
     {
         current_player->set_king(new_cord);
@@ -125,13 +107,13 @@ std::string Board::move_figure(tuple<int, int> old_cord, tuple<int, int> new_cor
         }
     }
 
-    if (purgatory != NULL)
+    if (purgatory != NULL) // adding figures from purgatory to graveyard
         take_figure(purgatory);
 
     if (moved_piece->get_figure() == 'P')
     {
         moved_piece->set_num_of_moves(1);
-        if ((get<0>(new_cord) == 0 || get<0>(new_cord) == 7) && !simulate)
+        if ((get<0>(new_cord) == 0 || get<0>(new_cord) == 7) && !simulate) // checking if pawn is in the position for promotion
             promote_figure(new_cord);
     }
 
@@ -154,14 +136,14 @@ std::string Board::move_figure(tuple<int, int> old_cord, tuple<int, int> new_cor
 }
 
 bool zero_direction(int move_a, int delta_a) noexcept
-{ // chceck for expected zero vector
+{ // check for expected zero vector
     return bool(move_a == 0 && delta_a == 0);
 }
 bool same_direction(int move_a, int delta_a) noexcept
 { // check for linear combination
     return bool(delta_a % move_a == 0);
 }
-bool one_direction(int move_a, int delta_a) noexcept // pun intended
+bool one_direction(int move_a, int delta_a) noexcept
 {
     if (zero_direction(move_a, delta_a))
         return true;
@@ -187,7 +169,7 @@ bool check_direction(int move_x, int move_y, int delta_x, int delta_y) noexcept
 
 bool Board::validate_move(Figure *moved, tuple<int, int> const old_cord, tuple<int, int> const cords)
 {
-    // check player
+    // check if figure belongs to player
     if (current_player->get_color() != moved->get_color())
     {
         throw out_of_range("Chosen figure does not belong to you!");
@@ -195,6 +177,7 @@ bool Board::validate_move(Figure *moved, tuple<int, int> const old_cord, tuple<i
 
     vector<tuple<int, int>> moves = moved->get_moves();
 
+    // pawn has its special moves that we need to check
     if (moved->get_figure() == 'P')
     {
         moves = get_pawn_moves(old_cord);
@@ -261,13 +244,13 @@ vector<tuple<int, int>> Board::get_pawn_moves(tuple<int, int> old_cord) const
 
     if (table[pos_x][pos_y]->get_color() == 'b')
     {
-        if (table[pos_x + 1][pos_y + 1] != NULL)
+        if (table[pos_x + 1][pos_y + 1] != NULL) // capture
             moves.push_back(make_tuple(1, 1));
-        if (table[pos_x + 1][pos_y] == NULL)
+        if (table[pos_x + 1][pos_y] == NULL) // normal move
             moves.push_back(make_tuple(1, 0));
-        if (table[pos_x + 2][pos_y] == NULL && !(table[pos_x][pos_y]->is_moved()))
+        if (table[pos_x + 2][pos_y] == NULL && !(table[pos_x][pos_y]->is_moved())) // move 2 up if pawn wasn't moved yet
             table[pos_x][pos_y]->set_num_of_moves(2);
-        if (table[pos_x + 1][pos_y - 1] != NULL)
+        if (table[pos_x + 1][pos_y - 1] != NULL) // capture
             moves.push_back(make_tuple(1, -1));
     }
     else

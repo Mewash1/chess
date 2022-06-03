@@ -417,6 +417,7 @@ TEST(Mate, TwoBishops)
 TEST(Mate, EasiestMate)
 {
     TestingBoard b(new TestingPlayer('w', "Player 1", true), new TestingPlayer('b', "Player 2", true), false);
+    b.add_new_figure(new King('b'), 0, 0);
     b.add_new_figure(new Queen('w'), 7, 3);
     b.add_new_figure(new King('w'), 7, 4);
     b.add_new_figure(new Bishop('w'), 7, 5);
@@ -432,8 +433,9 @@ TEST(Mate, EasiestMate)
 
     b.add_new_figure(new Queen('b'), 3, 7);
     b.move_figure(std::make_tuple(3, 7), std::make_tuple(4, 7));
-    b.move_figure(std::make_tuple(4, 7), std::make_tuple(7, 4));
-    //ASSERT_EQ(b.mate_check(), true);
+    b.switch_current_player();
+    //b.move_figure(std::make_tuple(7, 5), std::make_tuple(6, 6));
+    ASSERT_EQ(b.mate_check(), true);
 }
 
 TEST(Promote, PawnTOQueenMoves)

@@ -31,7 +31,14 @@ void TestingBoard::add_new_figure(Figure* new_figure, int x, int y)
 {
     table[x][y] = new_figure;
     if (table[x][y]->get_figure() == 'K')
-        current_player->set_king(std::make_tuple(x, y));
+        if (player1->get_color() == 'w' && new_figure->get_color() == 'w')
+            player1->set_king(std::make_tuple(x, y));
+        else if (player1->get_color() == 'w' && new_figure->get_color() == 'b')
+            player2->set_king(std::make_tuple(x, y));
+        else if (player1->get_color() == 'b' && new_figure->get_color() == 'b')
+            player2->set_king(std::make_tuple(x, y));
+        else if (player1->get_color() == 'b' && new_figure->get_color() == 'w')
+            player1->set_king(std::make_tuple(x, y));
 }
 
 Figure* TestingBoard::get_figure(int x, int y)
