@@ -17,7 +17,7 @@ bool Board::at_check(Player *player)
             ++_count_dead;
         }
     }
-    if (_count_dead == 15)
+    if (_count_dead == 15) // if there's only your king left, you are at check
         return true;
 
     tuple<int, int> king_pos = player->get_king();
@@ -31,7 +31,7 @@ bool Board::at_check(Player *player)
                 continue;
             try
             {
-                if (validate_move(table[x][y], make_tuple(x, y), king_pos))
+                if (validate_move(table[x][y], make_tuple(x, y), king_pos)) // checking if the other player can attack our king
                 {
                     switch_current_player();
                     return true;
@@ -65,7 +65,7 @@ bool Board::mate_check()
                     {
                         try
                         {
-                            move_figure(make_tuple(x, y), make_tuple(nx, ny), true);
+                            move_figure(make_tuple(x, y), make_tuple(nx, ny), true); // checking if you can move anywhere without vaidate or illegal move
                             // cout << x << y << " " << nx << ny << endl;
                             return false;
                         }
@@ -118,7 +118,7 @@ void Board::promote_figure(tuple<int, int> position, char new_fig)
     case 'R':
         fig = new Rook(current_player->get_color());
         break;
-    default:
+    default: // try again
         cout << "failed to promote" << endl;
         promote_figure(position);
         break;
