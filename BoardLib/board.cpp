@@ -252,10 +252,12 @@ vector<tuple<int, int>> Board::get_pawn_moves(tuple<int, int> old_cord) const
     vector<tuple<int, int>> moves;
     int pos_x = get<0>(old_cord);
     int pos_y = get<1>(old_cord);
-    if (table[pos_x][pos_y] == NULL)
-    {
-        return moves;
-    }
+    // if (table[pos_x][pos_y] == NULL)
+    // {
+    //     return moves;
+    // }
+    table[pos_x][pos_y]->set_num_of_moves(1); //fixing unwante dlong move bug
+    
 
     if (table[pos_x][pos_y]->get_color() == 'b')
     {
