@@ -66,7 +66,15 @@ std::string Board::move_figure(tuple<int, int> old_cord, tuple<int, int> new_cor
         std::string cast = castling(new_cord);
         if (cast != "")
         {
+            temp += (m[get<1>(old_cord)]);
+            temp += to_string(8 - get<0>(old_cord));
+            temp += "(";
+            temp += moved_piece->get_token();
+            temp += ") ";
             temp += cast;
+            temp += "> ";
+            temp += (m[get<1>(new_cord)]);
+            temp += to_string(8 - get<0>(new_cord));
             return temp;
         }
     }
@@ -239,8 +247,7 @@ vector<tuple<int, int>> Board::get_pawn_moves(tuple<int, int> old_cord) const
     // {
     //     return moves;
     // }
-    table[pos_x][pos_y]->set_num_of_moves(1); //fixing unwante dlong move bug
-    
+    table[pos_x][pos_y]->set_num_of_moves(1); // fixing unwante dlong move bug
 
     if (table[pos_x][pos_y]->get_color() == 'b')
     {

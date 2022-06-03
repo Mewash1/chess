@@ -17,19 +17,19 @@ Game::Game() noexcept // sets everything to NULL, because we have to wait for th
 
 void Game::menu() noexcept
 {
-    int gamemode;
+    char gamemode;
     char color;
     cout << "Welcome to CHESS!\n";
     while (true)
     {
         cout << "Please choose the game mode: \n 1. Human \n 2. Ai vs Ai\n";
         cin >> gamemode;
-        if (gamemode != 1 && gamemode != 2)
+        if (gamemode != '1' && gamemode != '2')
             cout << "Wrong option. Try again! \n";
         else
             break;
     }
-    if (gamemode == 1) // skip manual color selection in Ai v Ai mode
+    if (gamemode == '1') // skip manual color selection in Ai v Ai mode
     {
         while (true)
         {
@@ -46,7 +46,7 @@ void Game::menu() noexcept
         color = 'w';
     }
 
-    if (gamemode == 1)
+    if (gamemode == '1')
         player1 = new Player(color, "Player 1");
     else
         player1 = new Player(color, "Ai 1.072", false);
@@ -56,18 +56,18 @@ void Game::menu() noexcept
     else
         color = 'w';
 
-    if (gamemode == 1)
+    if (gamemode == '1')
         while (true)
         {
             cout << "Please choose the opponent mode: \n 1. VS Human \n 2. VS Computer\n";
             cin >> gamemode;
-            if (gamemode != 1 && gamemode != 2)
+            if (gamemode != '1' && gamemode != '2')
                 cout << "Wrong option. Try again! \n";
             else
                 break;
         }
 
-    if (gamemode == 1)
+    if (gamemode == '1')
         player2 = new Player(color, "Player 2");
     else
         player2 = new Player(color, "Ai 2.21", false);
@@ -84,8 +84,8 @@ void Game::menu() noexcept
 std::string Game::player_turn()
 {
 
-    std::string temp_return; // used to return, mainly for testing
-    int old_row, new_row; // info from coords
+    std::string temp_return;     // used to return, mainly for testing
+    int old_row, new_row;        // info from coords
     char old_column, new_column; // info from coords
     std::map<char, int> m = {{'a', 0}, {'b', 1}, {'c', 2}, {'d', 3}, {'e', 4}, {'f', 5}, {'g', 6}, {'h', 7}};
     std::string old_coords, new_coords;
@@ -108,7 +108,7 @@ std::string Game::player_turn()
                 break;
         }
         old_row = (int)(old_coords[1]) - '0';
-        old_row--; // for a computer, row is always 1 less than what number is printed on chess board
+        old_row--;                           // for a computer, row is always 1 less than what number is printed on chess board
         old_column = tolower(old_coords[0]); // used in case user puts eg. "A4" instead of "a4"
 
         while (true)
