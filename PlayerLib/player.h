@@ -22,7 +22,7 @@ public:
     vector<Figure *> get_figures() const noexcept { return figures; }
     bool get_humanity() const noexcept { return human; }
     tuple<int, int> get_king() const noexcept { return king_position; }
-    void set_king(tuple<int, int> new_pos) noexcept;
-    void add_figure(Figure* new_figure) {figures.push_back(new_figure);}
+    void set_king(tuple<int, int> new_pos) noexcept; // set king position
+    void add_figure(Figure* new_figure) {figures.push_back(new_figure);} // used when pawn is promoted
 };
 #endif

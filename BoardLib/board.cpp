@@ -67,7 +67,7 @@ void Board::switch_current_player() noexcept
 }
 
 std::map<int, char> m = {{0, 'a'}, {1, 'b'}, {2, 'c'}, {3, 'd'}, {4, 'e'}, {5, 'f'}, {6, 'g'}, {7, 'h'}};
-// ^used when player gives the coordinates for their move (eg. move a4 is translated so that the program understands that)
+// ^used when player gives the coordinates for their move (eg. move "a4" is translated using this map so that the program understands that)
 
 std::string Board::move_figure(tuple<int, int> old_cord, tuple<int, int> new_cord, bool simulate)
 {
@@ -102,7 +102,6 @@ std::string Board::move_figure(tuple<int, int> old_cord, tuple<int, int> new_cor
         throw out_of_range("illegal move!");
 
     // checks if there is any figure in the place user wants to move their piece on;
-    // if so, then
     if (table[get<0>(new_cord)][get<1>(new_cord)] != NULL)
     {
         purgatory = table[get<0>(new_cord)][get<1>(new_cord)];

@@ -2,7 +2,8 @@
 #include <tuple>
 // #include "include_all_figures.h"
 
-Player::Player(char color, std::string name, bool human) noexcept
+Player::Player(char color, std::string name, bool human) noexcept // creates all the figures for the player in the right order (depending on the color)
+// also sets king's position depending on the color
 {
     this->human = human;
     this->name = name;
@@ -44,7 +45,7 @@ Player::Player(char color, std::string name, bool human) noexcept
     }
 }
 
-void Player::set_king(tuple<int, int> new_pos) noexcept
+void Player::set_king(tuple<int, int> new_pos) noexcept // set new king position, used for checks
 {
     this->king_position = new_pos;
 }
