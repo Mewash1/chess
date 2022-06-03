@@ -403,6 +403,39 @@ TEST(Mate, RookAndQueen)
     ASSERT_EQ(b.mate_check(), true);
 }
 
+TEST(Mate, TwoBishops)
+{
+    TestingBoard b(new TestingPlayer('w', "Player 1", true), new TestingPlayer('b', "Player 2", true), true);
+    b.add_new_figure(new King('w'), 0, 0);
+    b.add_new_figure(new King('b'), 2, 1);
+    b.add_new_figure(new Bishop('b'), 2, 3);
+    b.add_new_figure(new Bishop('b'), 3, 3);
+
+    ASSERT_EQ(b.mate_check(), true);
+}
+
+TEST(Mate, EasiestMate)
+{
+    TestingBoard b(new TestingPlayer('w', "Player 1", true), new TestingPlayer('b', "Player 2", true), false);
+    b.add_new_figure(new Queen('w'), 7, 3);
+    b.add_new_figure(new King('w'), 7, 4);
+    b.add_new_figure(new Bishop('w'), 7, 5);
+    b.add_new_figure(new Horse('w'), 7, 6);
+    b.add_new_figure(new Rook('w'), 7, 7);
+    
+    b.add_new_figure(new Pawn('w'), 6, 3);
+    b.add_new_figure(new Pawn('w'), 6, 4);
+    b.add_new_figure(new Pawn('w'), 6, 7);
+
+    b.add_new_figure(new Pawn('w'), 5, 5);
+    b.add_new_figure(new Pawn('w'), 4, 6);
+
+    b.add_new_figure(new Queen('b'), 3, 7);
+    b.move_figure(std::make_tuple(3, 7), std::make_tuple(4, 7));
+    b.move_figure(std::make_tuple(4, 7), std::make_tuple(7, 4));
+    //ASSERT_EQ(b.mate_check(), true);
+}
+
 TEST(Promote, PawnTOQueenMoves)
 {
     TestingBoard b(new TestingPlayer('w', "Player 1", true), new TestingPlayer('b', "Player 2", true), true);
@@ -412,6 +445,39 @@ TEST(Promote, PawnTOQueenMoves)
     ASSERT_EQ(b.get_figure(1, 7)->get_figure(), 'Q');
     ASSERT_EQ(b.get_figure(1, 7)->get_num_of_moves(), 8);
     b.move_figure(std::make_tuple(1, 7), std::make_tuple(7, 7));
+}
+
+TEST(Promote, PawnToRook)
+{
+    TestingBoard b(new TestingPlayer('w', "Player 1", true), new TestingPlayer('b', "Player 2", true), true);
+    b.add_new_figure(new King('w'), 0, 0);
+    b.add_new_figure(new Pawn('w'), 1, 7);
+    b.promote_figure(std::make_tuple(1, 7), 'R');
+    ASSERT_EQ(b.get_figure(1, 7)->get_figure(), 'R');
+    ASSERT_EQ(b.get_figure(1, 7)->get_num_of_moves(), 8);
+    b.move_figure(std::make_tuple(1, 7), std::make_tuple(7, 7));
+}
+
+TEST(Promote, PawnToHorse)
+{
+    TestingBoard b(new TestingPlayer('w', "Player 1", true), new TestingPlayer('b', "Player 2", true), true);
+    b.add_new_figure(new King('w'), 0, 0);
+    b.add_new_figure(new Pawn('w'), 1, 7);
+    b.promote_figure(std::make_tuple(1, 7), 'H');
+    ASSERT_EQ(b.get_figure(1, 7)->get_figure(), 'H');
+    ASSERT_EQ(b.get_figure(1, 7)->get_num_of_moves(), 1);
+    b.move_figure(std::make_tuple(1, 7), std::make_tuple(3, 6));
+}
+
+TEST(Promote, PawnToBishop)
+{
+    TestingBoard b(new TestingPlayer('w', "Player 1", true), new TestingPlayer('b', "Player 2", true), true);
+    b.add_new_figure(new King('w'), 0, 0);
+    b.add_new_figure(new Pawn('w'), 1, 7);
+    b.promote_figure(std::make_tuple(1, 7), 'B');
+    ASSERT_EQ(b.get_figure(1, 7)->get_figure(), 'B');
+    ASSERT_EQ(b.get_figure(1, 7)->get_num_of_moves(), 8);
+    b.move_figure(std::make_tuple(1, 7), std::make_tuple(0, 6));
 }
 
 TEST(Castling, LongWhiteCast)
