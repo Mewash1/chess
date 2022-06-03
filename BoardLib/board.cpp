@@ -59,16 +59,7 @@ std::string Board::move_figure(tuple<int, int> old_cord, tuple<int, int> new_cor
         throw out_of_range("left playable area");
 
     Figure *moved_piece = table[get<0>(old_cord)][get<1>(old_cord)];
-
-    // prints the last move that the enemy made
     string temp = "";
-    temp += (m[get<1>(old_cord)]);
-    temp += to_string(8 - get<0>(old_cord));
-    temp += "(";
-    temp += moved_piece->get_token();
-    temp += ") ---> ";
-    temp += (m[get<1>(new_cord)]);
-    temp += to_string(8 - get<0>(new_cord));
 
     if (moved_piece->get_figure() == 'K' && moved_piece->get_num_of_moves() == 1) // try castling
     {
@@ -131,6 +122,15 @@ std::string Board::move_figure(tuple<int, int> old_cord, tuple<int, int> new_cor
     {
         throw logic_error("you will be at check");
     }
+
+    // prints the last move that the enemy made
+    temp += (m[get<1>(old_cord)]);
+    temp += to_string(8 - get<0>(old_cord));
+    temp += "(";
+    temp += moved_piece->get_token();
+    temp += ") ---> ";
+    temp += (m[get<1>(new_cord)]);
+    temp += to_string(8 - get<0>(new_cord));
 
     return temp;
 }
