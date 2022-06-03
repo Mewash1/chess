@@ -1,6 +1,5 @@
 #include "player.h"
 #include <tuple>
-// #include "include_all_figures.h"
 
 Player::Player(char color, std::string name, bool human) noexcept // creates all the figures for the player in the right order (depending on the color)
 // also sets king's position depending on the color

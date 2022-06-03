@@ -1,9 +1,7 @@
 #include "board.h"
-// #include "../PlayerLib/player.h"
 #include <vector>
 #include <tuple>
 #include <map>
-//#include <Windows.h>
 
 using namespace std;
 
@@ -125,7 +123,7 @@ std::string Board::move_figure(tuple<int, int> old_cord, tuple<int, int> new_cor
             promote_figure(new_cord);
     }
 
-    // cout << temp << endl;
+    // cout << temp << endl; // used for debug
     if (end_throw)
     {
         throw logic_error("you will be at check");

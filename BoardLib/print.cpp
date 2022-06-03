@@ -8,12 +8,8 @@ using namespace std;
 void Board::print_row(int i) const // prints out a row of chessboard and places figures at right spots
 // i is the number of the row in the chessboard, so eg. print_row(4) will print out 4th row with its figures
 {
-    /*HANDLE hConsole;
-    hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-    SetConsoleTextAttribute(hConsole, 15);*/
     srand(time(NULL));
     if (current_player->get_color() == 'w') // if whites play, we don't turn the chessboard
-    // if (true)
     {
         for (int j = 0; j < 8; j++)
         {
@@ -56,9 +52,6 @@ void Board::print_row(int i) const // prints out a row of chessboard and places 
 
 void Board::print() const // printing out the chess board with figures on their current places
 {
-    /*HANDLE hConsole;
-    hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-    SetConsoleTextAttribute(hConsole, 14);*/
     std::cout << "\033c"; // clear console so that only the current state of game is showed
     std::cout << "\033[33m-----------------------------------------" << std::endl;
     if (current_player->get_color() == 'w')
@@ -68,13 +61,10 @@ void Board::print() const // printing out the chess board with figures on their 
     std::cout << "-----------------------------------------\033[0m" << std::endl;
     for (int i = 0; i < 8; i++)
     {
-        // SetConsoleTextAttribute(hConsole, 14);
-        // if (true)
         if (current_player->get_color() == 'w')
             std::cout << "\033[33m| " << (8 - i) << " |\033[0m";
         else
             std::cout << "\033[33m| " << (i + 1) << " |\033[0m";
-        // SetConsoleTextAttribute(hConsole, 15);
         print_row(i);
         std::cout << "\033[33m-----\033[0m";
         std::cout << "\033[90m-------------------------------\033[33m-----\033[0m" << std::endl;
