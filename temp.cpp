@@ -21,7 +21,7 @@ int main()
         move_list = move_list + "Player 1's color: white\n" + "Player 2's color: black\n\n";
     else
         move_list = move_list + "Player 1's color: black\n" + "Player 2's color: white\n\n";
-    
+
     while (!game.mate_check())
     {
         if (game.get_current_player()->get_humanity())
@@ -65,7 +65,7 @@ int main()
         cout << "Would you like to save your game to a file? (Y/N): ";
         cin >> choice;
 
-        if (choice == 'Y')
+        if (toupper(choice) == 'Y')
         {
             std::ofstream file;
             remove("saved_game.txt");
@@ -74,7 +74,7 @@ int main()
             file.close();
             return 0;
         }
-        else if (choice == 'N')
+        else if (toupper(choice) == 'N')
             return 0;
         else
             cout << "Wrong input: try again!\n";
