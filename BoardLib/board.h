@@ -22,15 +22,15 @@ public:
     Board(Player *player1, Player *player2);
     void remove_figure();
     std::string move_figure(tuple<int, int>, tuple<int, int>, bool simulate = false);
-    vector<tuple<int, int>> get_pawn_moves(tuple<int, int>);
+    vector<tuple<int, int>> get_pawn_moves(tuple<int, int>) const;
     bool at_check(Player *player);
 
     void promote_figure(tuple<int, int>, char = ' ');
     Player *end_turn(); // end turn returns next player
-    void print();
-    void print_row(int i);
-    void print_graveyard();
-    void switch_current_player();
+    void print() const;
+    void print_row(int i) const;
+    void print_graveyard() const;
+    void switch_current_player() noexcept;
     bool mate_check();
 };
 

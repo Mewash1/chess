@@ -7,7 +7,7 @@
 
 using namespace std;
 
-Board::Board(Player *player1, Player *player2)
+Board::Board(Player *player1, Player *player2) // sets figures at their places and sets current player's color
 {
     int v = 0;
     for (int i = 7; i >= 6; i--)
@@ -58,7 +58,7 @@ Board::Board(Player *player1, Player *player2)
 
 // prints were here
 
-void Board::switch_current_player()
+void Board::switch_current_player() noexcept
 {
     if (current_player == player1)
         current_player = player2;
@@ -67,6 +67,7 @@ void Board::switch_current_player()
 }
 
 std::map<int, char> m = {{0, 'a'}, {1, 'b'}, {2, 'c'}, {3, 'd'}, {4, 'e'}, {5, 'f'}, {6, 'g'}, {7, 'h'}};
+// ^used when player gives the coordinates for their move (eg. move a4 is translated so that the program understands that)
 
 std::string Board::move_figure(tuple<int, int> old_cord, tuple<int, int> new_cord, bool simulate)
 {
@@ -77,6 +78,7 @@ std::string Board::move_figure(tuple<int, int> old_cord, tuple<int, int> new_cor
 
     Figure *moved_piece = table[get<0>(old_cord)][get<1>(old_cord)];
 
+    // prints the last move that the enemy made
     string temp = "";
     temp += (m[get<1>(old_cord)]);
     temp += to_string(8 - get<0>(old_cord));
@@ -99,6 +101,8 @@ std::string Board::move_figure(tuple<int, int> old_cord, tuple<int, int> new_cor
     if (!validate_move(moved_piece, old_cord, new_cord))
         throw out_of_range("illegal move!");
 
+    // checks if there is any figure in the place user wants to move their piece on;
+    // if so, then
     if (table[get<0>(new_cord)][get<1>(new_cord)] != NULL)
     {
         purgatory = table[get<0>(new_cord)][get<1>(new_cord)];
@@ -150,15 +154,15 @@ std::string Board::move_figure(tuple<int, int> old_cord, tuple<int, int> new_cor
     return temp;
 }
 
-bool zero_direction(int move_a, int delta_a)
+bool zero_direction(int move_a, int delta_a) noexcept
 { // chceck for expected zero vector
     return bool(move_a == 0 && delta_a == 0);
 }
-bool same_direction(int move_a, int delta_a)
+bool same_direction(int move_a, int delta_a) noexcept
 { // check for linear combination
     return bool(delta_a % move_a == 0);
 }
-bool one_direction(int move_a, int delta_a) // pun intended
+bool one_direction(int move_a, int delta_a) noexcept // pun intended
 {
     if (zero_direction(move_a, delta_a))
         return true;
@@ -168,12 +172,12 @@ bool one_direction(int move_a, int delta_a) // pun intended
         return false;
 }
 
-bool turn_direction(int move_a, int delta_a)
+bool turn_direction(int move_a, int delta_a) noexcept
 { // check for common vector turn
     return bool((delta_a * move_a > 0) or (move_a == 0 && delta_a == 0));
 }
 
-bool check_direction(int move_x, int move_y, int delta_x, int delta_y)
+bool check_direction(int move_x, int move_y, int delta_x, int delta_y) noexcept
 {
 
     return bool((one_direction(move_x, delta_x) &&
@@ -244,7 +248,7 @@ void Board::take_figure(Figure *looser)
     purgatory = NULL;
 }
 
-vector<tuple<int, int>> Board::get_pawn_moves(tuple<int, int> old_cord)
+vector<tuple<int, int>> Board::get_pawn_moves(tuple<int, int> old_cord) const
 {
     vector<tuple<int, int>> moves;
     int pos_x = get<0>(old_cord);

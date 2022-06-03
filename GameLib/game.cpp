@@ -6,7 +6,7 @@
 
 using std::cin;
 using std::cout;
-Game::Game()
+Game::Game() noexcept
 {
     this->player1 = NULL;
     this->player2 = NULL;
@@ -14,7 +14,7 @@ Game::Game()
     this->board = NULL;
 }
 
-void Game::menu()
+void Game::menu() noexcept
 {
     int gamemode;
     char color;
@@ -178,7 +178,7 @@ std::string Game::cpu_turn()
     return temp_return;
 }
 
-void Game::switch_player()
+void Game::switch_player() noexcept
 {
     board->switch_current_player();
     if (current_player == player1)
@@ -187,7 +187,7 @@ void Game::switch_player()
         current_player = player1;
 }
 
-bool Game::mate_check()
+bool Game::mate_check() const noexcept
 {
     return board->mate_check();
 }

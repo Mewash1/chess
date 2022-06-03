@@ -5,13 +5,14 @@
 
 using namespace std;
 
-void Board::print_row(int i)
+void Board::print_row(int i) const // prints out a row of chessboard and places figures at right spots
+// i is the number of the row in the chessboard, so eg. print_row(4) will print out 4th row with its figures
 {
     /*HANDLE hConsole;
     hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     SetConsoleTextAttribute(hConsole, 15);*/
     srand(time(NULL));
-    if (current_player->get_color() == 'w') // no turning
+    if (current_player->get_color() == 'w') // if whites play, we don't turn the chessboard
     // if (true)
     {
         for (int j = 0; j < 8; j++)
@@ -29,8 +30,9 @@ void Board::print_row(int i)
             else
                 std::cout << "\033[31m " << (table[i][j])->get_token() << ' ';
         }
+        std::cout << "\033[33m| " << (8 - i) << " |\033[0m";
     }
-    else
+    else // if blacks play, we turn the chessboard so that it's easier to make the right move
     {
         for (int j = 0; j < 8; j++)
         {
@@ -47,17 +49,17 @@ void Board::print_row(int i)
             else
                 std::cout << "\033[31m " << (table[7 - i][7 - j])->get_token() << ' ';
         }
+        std::cout << "\033[33m| " << (i + 1) << " |\033[0m";
     }
-    std::cout << "\033[33m| " << (8 - i) << " |\033[0m";
     std::cout << endl;
 }
 
-void Board::print()
+void Board::print() const // printing out the chess board with figures on their current places
 {
     /*HANDLE hConsole;
     hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     SetConsoleTextAttribute(hConsole, 14);*/
-    std::cout << "\033c"; // clear
+    std::cout << "\033c"; // clear console so that only the current state of game is showed
     std::cout << "\033[33m-----------------------------------------" << std::endl;
     if (current_player->get_color() == 'w')
         std::cout << "|   | A | B | C | D | E | F | G | H |   |" << std::endl;
@@ -83,10 +85,10 @@ void Board::print()
         std::cout << "\033[33m|   | H | G | F | E | D | C | B | A |   |" << std::endl;
     std::cout << "-----------------------------------------\033[0m" << std::endl;
     print_graveyard();
-    std::cout << current_player->get_name() << "'s turn\n";
+    std::cout << current_player->get_name() << "'s turn\n"; // prints out which player's turn it is
 }
 
-void Board::print_graveyard()
+void Board::print_graveyard() const // prints out figures that are already taken, both for white and black teams (in two seperate lines)
 {
     std::vector<char> temp;
     for (int i = 0; i < graveyard.size(); ++i)

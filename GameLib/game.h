@@ -9,18 +9,18 @@ private:
     Board *board;
 
 public:
-    Game();
+    Game() noexcept;
     ~Game();
-    void menu();
+    void menu() noexcept;
     void show_board() { board->print(); }
     // void show_graveyard() { board->print_graveyard(); }
     std::string move_figure(std::tuple<int, int> old_cor, std::tuple<int, int> new_cor) { return board->move_figure(old_cor, new_cor); }
     std::string player_turn();
     std::string cpu_turn();
-    void switch_player();
-    bool mate_check();
-    Player *get_player1() { return player1; }
-    Player *get_player2() { return player2; }
-    Player *get_current_player() { return current_player; }
+    void switch_player() noexcept;
+    bool mate_check() const noexcept;
+    Player *get_player1() const noexcept { return player1; }
+    Player *get_player2() const noexcept { return player2; }
+    Player *get_current_player() const noexcept { return current_player; }
     Board *get_board() const noexcept { return board; }
 };
